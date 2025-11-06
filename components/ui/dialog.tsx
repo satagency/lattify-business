@@ -36,25 +36,15 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-6 shadow-medium duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-lg',
-        // Default to light mode (manager), override in Modal component
-        'border border-gray-200 bg-white',
+        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-gray-200 bg-white p-6 shadow-medium duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-lg',
+        'dark:border-gray-800 dark:bg-gray-900',
         className
       )}
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className={cn(
-        "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none",
-        // Default to light mode (manager)
-        "ring-offset-white focus:ring-black focus:ring-offset-white data-[state=open]:bg-gray-100 data-[state=open]:text-gray-600",
-        // Override if className contains bg-gray-900 (dark mode)
-        className?.includes('bg-gray-900') && "ring-offset-gray-900 focus:ring-white focus:ring-offset-gray-900 data-[state=open]:bg-gray-800 data-[state=open]:text-gray-400"
-      )}>
-        <X className={cn(
-          "h-4 w-4",
-          className?.includes('bg-gray-900') ? "text-white" : "text-black"
-        )} />
+      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-gray-100 data-[state=open]:text-gray-600 dark:focus:ring-white dark:focus:ring-offset-gray-900 dark:data-[state=open]:bg-gray-800 dark:data-[state=open]:text-gray-400">
+        <X className="h-4 w-4 text-black dark:text-white" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
@@ -90,7 +80,7 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn('text-lg font-semibold leading-none tracking-tight', className)}
+    className={cn('text-lg font-semibold leading-none tracking-tight text-black dark:text-white', className)}
     {...props}
   />
 ));
@@ -102,7 +92,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn('text-sm', className)}
+    className={cn('text-sm text-gray-600 dark:text-gray-400', className)}
     {...props}
   />
 ));

@@ -23,7 +23,7 @@ export function Header({ title, showMenu = false, onMenuToggle, isMenuOpen }: He
   return (
     <header className={cn(
       "sticky top-0 z-50 border-b backdrop-blur-sm",
-      isEmployee ? "bg-black/80 border-gray-800" : "bg-white border-gray-200"
+      "bg-white border-gray-200 dark:bg-black/80 dark:border-gray-800"
     )}>
       <div className="flex items-center justify-between px-4 py-3 md:px-6">
         <div className="flex items-center gap-4">
@@ -34,20 +34,20 @@ export function Header({ title, showMenu = false, onMenuToggle, isMenuOpen }: He
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
-                <X className={cn("h-6 w-6", isEmployee ? "text-white" : "text-black")} />
+                <X className="h-6 w-6 text-black dark:text-white" />
               ) : (
-                <Menu className={cn("h-6 w-6", isEmployee ? "text-white" : "text-black")} />
+                <Menu className="h-6 w-6 text-black dark:text-white" />
               )}
             </button>
           )}
           <Link href={isEmployee ? '/employee' : isManager ? '/manager' : '/'}>
-            <h1 className={cn("text-xl font-bold", isEmployee ? "text-white" : "text-black")}>{title}</h1>
+            <h1 className="text-xl font-bold text-black dark:text-white">{title}</h1>
           </Link>
         </div>
         <nav className="hidden md:flex items-center gap-4">
           {isEmployee && (
             <>
-              <Link href="/employee" className="text-sm hover:underline text-gray-300">
+              <Link href="/employee" className="text-sm hover:underline text-gray-700 dark:text-gray-300">
                 My Training
               </Link>
             </>
