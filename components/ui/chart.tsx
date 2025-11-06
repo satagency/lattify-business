@@ -143,6 +143,7 @@ const ChartTooltipContent = React.forwardRef<
       coordinate,
       cursor,
       viewBox,
+      axisId,
       // @ts-ignore - these are Recharts props
       ...domProps
     } = props as any
