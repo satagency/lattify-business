@@ -33,22 +33,26 @@ const chartConfig = {
     label: 'Help Requests',
     color: 'hsl(0, 0%, 0%)',
   },
-  completed: {
-    label: 'Completed',
+  completionRate: {
+    label: 'Completion Rate',
     color: 'hsl(0, 0%, 0%)',
   },
-  inProgress: {
-    label: 'In Progress',
+  requests: {
+    label: 'Requests',
+    color: 'hsl(0, 0%, 0%)',
+  },
+  open: {
+    label: 'Open',
+    color: 'hsl(0, 0%, 0%)',
+  },
+  resolved: {
+    label: 'Resolved',
     color: 'hsl(0, 0%, 40%)',
-  },
-  questions: {
-    label: 'Questions',
-    color: 'hsl(0, 0%, 0%)',
   },
 } satisfies ChartConfig;
 
 export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
-  // Guide completion rates
+  // Guide completion rates - Line chart
   const guideCompletionData = React.useMemo(() => {
     const guideCompletionMap = new Map<string, { completed: number; total: number }>();
     
@@ -64,31 +68,41 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
       .map(([guideId, data]) => {
         const guide = mockGuides.find(g => g.id === guideId);
         return {
-          name: guide?.title || guideId,
-          completionRate: Math.round((data.completed / data.total) * 100),
-          completed: data.completed,
-          total: data.total,
+          guide: guide?.title.length > 15 ? guide.title.substring(0, 15) + '...' : guide?.title || guideId,
+          rate: Math.round((data.completed / data.total) * 100),
         };
       })
-      .sort((a, b) => b.completionRate - a.completionRate)
-      .slice(0, 5);
+      .sort((a, b) => b.rate - a.rate)
+      .slice(0, 6);
   }, []);
 
-  // Help requests over time (last 7 days)
+  // Help requests over time - Stacked Area chart
   const helpRequestsOverTime = React.useMemo(() => {
     const last7Days = Array.from({ length: 7 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() - (6 - i));
       const dateStr = date.toISOString().split('T')[0];
       
-      const count = mockQuestions.filter(q => {
+      const total = mockQuestions.filter(q => {
         const qDate = q.createdAt.toISOString().split('T')[0];
         return qDate === dateStr;
       }).length;
 
+      const open = mockQuestions.filter(q => {
+        const qDate = q.createdAt.toISOString().split('T')[0];
+        return qDate === dateStr && q.status === 'open';
+      }).length;
+
+      const resolved = mockQuestions.filter(q => {
+        const qDate = q.createdAt.toISOString().split('T')[0];
+        return qDate === dateStr && q.status === 'resolved';
+      }).length;
+
       return {
         date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        requests: count,
+        open,
+        resolved,
+        total,
       };
     });
 
@@ -97,26 +111,26 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
 
   // Most viewed guides
   const mostViewedData = analytics.mostViewedGuides.map((item) => ({
-    name: item.title.length > 18 ? item.title.substring(0, 18) + '...' : item.title,
+    guide: item.title.length > 18 ? item.title.substring(0, 18) + '...' : item.title,
     views: item.views,
   }));
 
   // Help requests by step
   const helpRequestsData = analytics.helpRequests.map((item) => ({
-    name: item.step.length > 22 ? item.step.substring(0, 22) + '...' : item.step,
+    step: item.step.length > 20 ? item.step.substring(0, 20) + '...' : item.step,
     count: item.count,
   }));
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* Guide Completion Rates */}
+      {/* Guide Completion Rates - Line Chart */}
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Guide Completion Rates</h3>
         <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-          <BarChart accessibilityLayer data={guideCompletionData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+          <LineChart accessibilityLayer data={guideCompletionData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis 
-              dataKey="name" 
+              dataKey="guide" 
               tickLine={false}
               axisLine={false}
               tickMargin={10}
@@ -133,16 +147,19 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
               domain={[0, 100]}
             />
             <ChartTooltip content={<ChartTooltipContent />} />
-            <Bar 
-              dataKey="completionRate" 
-              fill="var(--color-completed)" 
-              radius={[4, 4, 0, 0]}
+            <Line 
+              type="monotone"
+              dataKey="rate" 
+              stroke="var(--color-completionRate)" 
+              strokeWidth={2}
+              dot={{ fill: 'var(--color-completionRate)', r: 4 }}
+              activeDot={{ r: 6 }}
             />
-          </BarChart>
+          </LineChart>
         </ChartContainer>
       </div>
 
-      {/* Help Requests Over Time */}
+      {/* Help Requests Trend - Stacked Area Chart */}
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Help Requests Trend</h3>
         <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
@@ -164,24 +181,34 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
             <ChartTooltip content={<ChartTooltipContent />} />
             <Area 
               type="monotone"
-              dataKey="requests" 
-              fill="var(--color-questions)"
-              fillOpacity={0.2}
-              stroke="var(--color-questions)"
+              dataKey="open" 
+              stackId="1"
+              fill="var(--color-open)"
+              fillOpacity={0.6}
+              stroke="var(--color-open)"
+              strokeWidth={2}
+            />
+            <Area 
+              type="monotone"
+              dataKey="resolved" 
+              stackId="1"
+              fill="var(--color-resolved)"
+              fillOpacity={0.6}
+              stroke="var(--color-resolved)"
               strokeWidth={2}
             />
           </AreaChart>
         </ChartContainer>
       </div>
 
-      {/* Most Viewed Guides */}
+      {/* Most Viewed Guides - Bar Chart */}
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Most Viewed Guides</h3>
         <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
           <BarChart accessibilityLayer data={mostViewedData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis 
-              dataKey="name" 
+              dataKey="guide" 
               tickLine={false}
               axisLine={false}
               tickMargin={10}
@@ -206,7 +233,7 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
         </ChartContainer>
       </div>
 
-      {/* Help Requests by Step */}
+      {/* Help Requests by Step - Horizontal Bar Chart */}
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Help Requests by Step</h3>
         <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
@@ -214,7 +241,7 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
             accessibilityLayer 
             data={helpRequestsData} 
             layout="vertical"
-            margin={{ top: 20, right: 30, left: 140, bottom: 20 }}
+            margin={{ top: 20, right: 30, left: 130, bottom: 20 }}
           >
             <CartesianGrid horizontal={true} vertical={false} strokeDasharray="3 3" />
             <XAxis 
@@ -225,11 +252,11 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
               tick={{ fontSize: 11 }}
             />
             <YAxis 
-              dataKey="name" 
+              dataKey="step" 
               type="category" 
               tickLine={false}
               axisLine={false}
-              width={130}
+              width={120}
               tick={{ fontSize: 11 }}
             />
             <ChartTooltip content={<ChartTooltipContent />} />
