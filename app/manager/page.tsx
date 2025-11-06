@@ -149,7 +149,7 @@ export default function ManagerDashboard() {
 
       {/* What's Happening Today */}
       <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-medium">What's happening today</h2>
           <div className="flex items-center gap-2">
             <button className="px-3 py-1.5 text-xs font-medium bg-black text-white rounded-lg">Today</button>
@@ -157,32 +157,9 @@ export default function ManagerDashboard() {
             <button className="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 rounded-lg">Next 7 days</button>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <ActivityCard
-            icon={CheckCircle2}
-            value={completedToday}
-            label="Completions"
-            href="/manager/staff"
-          />
-          <ActivityCard
-            icon={Clock}
-            value={inProgressGuides}
-            label="In Progress"
-            href="/manager/staff"
-          />
-          <ActivityCard
-            icon={MessageSquare}
-            value={openQuestions.length}
-            label="Open Questions"
-            href="/manager/questions"
-          />
-          <ActivityCard
-            icon={AlertCircle}
-            value={pendingProofs}
-            label="Pending Proofs"
-            href="/manager/photos"
-          />
-        </div>
+        <p className="text-base text-gray-700 leading-relaxed">
+          Today: <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><CheckCircle2 className="h-4 w-4" /><span>{completedToday}</span> completions</Link>, <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><Clock className="h-4 w-4" /><span>{inProgressGuides}</span> in progress</Link>, <Link href="/manager/questions" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><MessageSquare className="h-4 w-4" /><span>{openQuestions.length}</span> open questions</Link>, and <Link href="/manager/photos" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><AlertCircle className="h-4 w-4" /><span>{pendingProofs}</span> pending proofs</Link>.
+        </p>
       </div>
 
       {/* Performance Charts */}
