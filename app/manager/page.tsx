@@ -157,7 +157,7 @@ export default function ManagerDashboard() {
             <button className="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 rounded-lg">Next 7 days</button>
           </div>
         </div>
-        <p className="text-base text-gray-700 leading-relaxed">
+        <p className="text-2xl font-light text-gray-700 leading-relaxed">
           Today: <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><CheckCircle2 className="h-4 w-4" /><span>{completedToday}</span> completions</Link>, <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><Clock className="h-4 w-4" /><span>{inProgressGuides}</span> in progress</Link>, <Link href="/manager/questions" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><MessageSquare className="h-4 w-4" /><span>{openQuestions.length}</span> open questions</Link>, and <Link href="/manager/photos" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><AlertCircle className="h-4 w-4" /><span>{pendingProofs}</span> pending proofs</Link>.
         </p>
       </div>
