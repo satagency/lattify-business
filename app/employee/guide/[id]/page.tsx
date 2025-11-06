@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Check, MessageSquare, X, RotateCcw, Sparkles } from 'lucide-react';
+import { ArrowLeft, Check, MessageSquare, X, RotateCcw, Sparkles, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/shared/Button';
 import { ProgressBar } from '@/components/employee/ProgressBar';
 import { Modal } from '@/components/shared/Modal';
@@ -23,6 +23,7 @@ export default function GuideDetailPage() {
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
   const [questionText, setQuestionText] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const guide = getGuideById(guideId);
   const progress = getProgressByStaffAndGuide(CURRENT_STAFF_ID, guideId);
@@ -88,28 +89,39 @@ export default function GuideDetailPage() {
       {/* Video/Image Area - matching consumer platform */}
       <div className="relative aspect-video bg-gray-900">
         {/* Video placeholder - will show actual video */}
-        <div className="w-full h-full flex items-center justify-center bg-gray-900">
-          <div className="text-center text-gray-500">
-            <p className="text-sm">Video will appear here</p>
-            <p className="text-xs mt-1">Full-screen Craft Reels Mode</p>
-          </div>
-        </div>
+        <div className="w-full h-full bg-gray-900" />
         {/* Video controls overlay - matching consumer platform */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="flex items-center gap-4 pointer-events-auto">
-            <button className="bg-black/60 backdrop-blur-sm rounded-full p-3 text-white hover:bg-black/80">
+            <button 
+              onClick={() => {}}
+              className="bg-black/60 backdrop-blur-sm rounded-full p-3 text-white hover:bg-black/80 transition-colors"
+              aria-label="Rewind 15 seconds"
+            >
               <RotateCcw className="h-5 w-5" />
             </button>
-            <button className="bg-black/60 backdrop-blur-sm rounded-full p-4 text-white hover:bg-black/80">
-              <div className="w-6 h-6 border-2 border-white"></div>
+            <button 
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="bg-black/60 backdrop-blur-sm rounded-full p-4 text-white hover:bg-black/80 transition-colors"
+              aria-label={isPlaying ? "Pause" : "Play"}
+            >
+              {isPlaying ? (
+                <Pause className="h-6 w-6" />
+              ) : (
+                <Play className="h-6 w-6" />
+              )}
             </button>
-            <button className="bg-black/60 backdrop-blur-sm rounded-full p-3 text-white hover:bg-black/80">
+            <button 
+              onClick={() => {}}
+              className="bg-black/60 backdrop-blur-sm rounded-full p-3 text-white hover:bg-black/80 transition-colors"
+              aria-label="Fast forward 15 seconds"
+            >
               <RotateCcw className="h-5 w-5 rotate-180" />
             </button>
           </div>
         </div>
         {/* Step indicator overlay */}
-        <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded text-sm font-medium">
+        <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded text-sm font-medium text-white">
           Step {currentStep} of {totalSteps}
         </div>
       </div>
