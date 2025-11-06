@@ -180,10 +180,10 @@ export default function GuideDetailPage() {
           <button
             onClick={() => handleStepComplete(currentStep)}
             disabled={isComplete}
-            className="flex-1 bg-white text-black rounded-lg px-4 py-3 flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 bg-white text-black rounded-lg px-4 py-3 flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
           >
             <Check className="h-4 w-4" />
-            <span className="text-sm font-medium">Mark Complete</span>
+            <span className="text-sm">Mark Complete</span>
           </button>
         </div>
       </div>

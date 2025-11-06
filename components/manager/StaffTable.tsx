@@ -138,7 +138,7 @@ export function StaffTable({ staff, onStaffClick }: StaffTableProps) {
                       className={cn(
                         'inline-flex items-center px-2 py-1 rounded text-xs font-medium',
                         getStatusColor(member.status),
-                        member.status === 'active' || member.status === 'complete'
+                        member.status === 'active' || member.status === 'complete' || member.status === 'open'
                           ? 'text-white'
                           : 'text-black'
                       )}

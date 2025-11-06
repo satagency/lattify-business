@@ -141,7 +141,7 @@ function GuideCard({
           <GuideMenu guideId={guide.id} onMenuAction={onMenuAction} />
         </div>
         <div className="absolute bottom-2 left-2">
-          <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium">
+          <span className="bg-gray-900 text-white px-2 py-1 rounded text-xs font-medium">
             {getCategoryLabel(guide.category)}
           </span>
         </div>
