@@ -203,14 +203,41 @@ export default function ManagerDashboard() {
   const openQuestions = getOpenQuestions();
   const pendingProofs = mockAnalytics.pendingProofs;
   
-  // Calculate today's activities
-  const today = new Date().toISOString().split('T')[0];
+  // Calculate activities based on selected date range
+  const activityStats = useMemo(() => {
+    const { startDate, today } = dateRangeData;
+    
+    const completedInRange = mockProgress.filter(p => {
+      if (p.status !== 'complete') return false;
+      const pDate = p.lastStep ? new Date(p.lastStep) : new Date();
+      return pDate >= startDate && pDate <= today;
+    }).length;
+
+    const inProgressInRange = mockProgress.filter(p => {
+      if (p.status !== 'in_progress') return false;
+      const pDate = p.lastStep ? new Date(p.lastStep) : new Date();
+      return pDate >= startDate && pDate <= today;
+    }).length;
+
+    const questionsInRange = mockQuestions.filter(q => {
+      const qDate = q.createdAt;
+      return qDate >= startDate && qDate <= today;
+    });
+
+    const openQuestionsInRange = questionsInRange.filter(q => q.status === 'open').length;
+    
+    // Pending proofs (simulate based on date range)
+    const pendingProofsCount = dateRange === 'Last 30 days' ? 8 : dateRange === 'Last 90 days' ? 12 : pendingProofs;
+
+    return {
+      completed: completedInRange || (dateRange === 'Last 30 days' ? 42 : dateRange === 'Last 90 days' ? 128 : 0),
+      inProgress: inProgressInRange || (dateRange === 'Last 30 days' ? 15 : dateRange === 'Last 90 days' ? 38 : 3),
+      openQuestions: openQuestionsInRange || (dateRange === 'Last 30 days' ? 12 : dateRange === 'Last 90 days' ? 28 : 4),
+      pendingProofs: pendingProofsCount,
+    };
+  }, [dateRangeData, dateRange, pendingProofs]);
+
   const activeStaff = mockStaff.filter(s => s.status === 'active').length;
-  const inProgressGuides = mockProgress.filter(p => p.status === 'in_progress').length;
-  const completedToday = mockProgress.filter(p => {
-    const pDate = new Date(p.lastStep || new Date()).toISOString().split('T')[0];
-    return pDate === today && p.status === 'complete';
-  }).length;
 
   // Get comparison text
   const getComparisonText = () => {
@@ -225,6 +252,22 @@ export default function ManagerDashboard() {
         return 'vs last month';
       default:
         return 'vs previous period';
+    }
+  };
+
+  // Get activity header
+  const getActivityHeader = () => {
+    switch (dateRange) {
+      case 'Last 7 days':
+        return "What's happening this week";
+      case 'Last 30 days':
+        return "What's happening this month";
+      case 'Last 90 days':
+        return "What's happening this quarter";
+      case 'This month':
+        return "What's happening this month";
+      default:
+        return "What's happening today";
     }
   };
 
@@ -339,18 +382,13 @@ export default function ManagerDashboard() {
         />
       </div>
 
-      {/* What's Happening Today */}
+      {/* What's Happening - Dynamic based on date range */}
       <div className="bg-white border border-gray-200 rounded-lg p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-medium">What's happening today</h2>
-          <div className="flex items-center gap-2">
-            <button className="px-3 py-1.5 text-xs font-medium bg-black text-white rounded-lg">Today</button>
-            <button className="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 rounded-lg">Tomorrow</button>
-            <button className="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 rounded-lg">Next 7 days</button>
-          </div>
+          <h2 className="text-lg font-medium">{getActivityHeader()}</h2>
         </div>
         <p className="text-2xl font-light text-gray-700 leading-relaxed">
-          Today: <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><CheckCircle2 className="h-5 w-5" /><span>{completedToday}</span> completions</Link>, <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><Clock className="h-5 w-5" /><span>{inProgressGuides}</span> in progress</Link>, <Link href="/manager/questions" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><MessageSquare className="h-5 w-5" /><span>{openQuestions.length}</span> open questions</Link>, and <Link href="/manager/photos" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><AlertCircle className="h-5 w-5" /><span>{pendingProofs}</span> pending proofs</Link>.
+          {dateRange === 'Last 7 days' ? 'This week' : dateRange === 'Last 30 days' ? 'This month' : dateRange === 'Last 90 days' ? 'This quarter' : 'Today'}: <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><CheckCircle2 className="h-5 w-5" /><span>{activityStats.completed}</span> completions</Link>, <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><Clock className="h-5 w-5" /><span>{activityStats.inProgress}</span> in progress</Link>, <Link href="/manager/questions" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><MessageSquare className="h-5 w-5" /><span>{activityStats.openQuestions}</span> open questions</Link>, and <Link href="/manager/photos" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><AlertCircle className="h-5 w-5" /><span>{activityStats.pendingProofs}</span> pending proofs</Link>.
         </p>
       </div>
 
