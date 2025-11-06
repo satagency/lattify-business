@@ -1,6 +1,9 @@
 // components/shared/Button.tsx
 
+'use client';
+
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,9 +19,18 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
+  const pathname = usePathname();
+  const isEmployee = pathname?.startsWith('/employee');
+  
   const baseStyles = 'font-medium rounded transition-colors focus-ring disabled:opacity-50 disabled:cursor-not-allowed';
   
-  const variants = {
+  // Employee (dark mode) vs Manager (light mode) variants
+  const variants = isEmployee ? {
+    primary: 'bg-white text-black hover:bg-gray-100',
+    secondary: 'bg-gray-700 text-gray-100 hover:bg-gray-600',
+    outline: 'border-2 border-white text-white hover:bg-gray-900',
+    ghost: 'text-white hover:bg-gray-900',
+  } : {
     primary: 'bg-black text-white hover:bg-gray-900',
     secondary: 'bg-gray-200 text-black hover:bg-gray-300',
     outline: 'border-2 border-black text-black hover:bg-gray-50',

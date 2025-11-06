@@ -3,6 +3,7 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import {
   Dialog,
   DialogContent,
@@ -12,6 +13,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/shared/Button';
+import { cn } from '@/lib/utils';
 
 interface ModalProps {
   open: boolean;
@@ -32,6 +34,10 @@ export function Modal({
   footer,
   size = 'md',
 }: ModalProps) {
+  const pathname = usePathname();
+  const isEmployee = pathname?.startsWith('/employee');
+  const isManager = pathname?.startsWith('/manager');
+
   const sizeClasses = {
     sm: 'max-w-md',
     md: 'max-w-lg',
@@ -40,10 +46,20 @@ export function Modal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={sizeClasses[size]}>
+      <DialogContent className={cn(
+        sizeClasses[size],
+        isEmployee && 'bg-gray-900 border-gray-800',
+        isManager && 'bg-white border-gray-200'
+      )}>
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          {description && <DialogDescription>{description}</DialogDescription>}
+          <DialogTitle className={isEmployee ? 'text-white' : 'text-black'}>
+            {title}
+          </DialogTitle>
+          {description && (
+            <DialogDescription className={isEmployee ? 'text-gray-400' : 'text-gray-600'}>
+              {description}
+            </DialogDescription>
+          )}
         </DialogHeader>
         <div className="py-4">{children}</div>
         {footer && <DialogFooter>{footer}</DialogFooter>}
