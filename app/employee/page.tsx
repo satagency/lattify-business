@@ -19,7 +19,7 @@ export default function EmployeeDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Get assigned guides for current staff
-  const assignedGuideIds = ['guide-001', 'guide-002', 'guide-003'];
+  const assignedGuideIds = ['guide-001', 'guide-003', 'guide-005'];
   const assignedGuides = mockGuides.filter((guide) =>
     assignedGuideIds.includes(guide.id)
   );
