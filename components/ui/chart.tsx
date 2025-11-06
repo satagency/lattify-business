@@ -71,6 +71,45 @@ const ChartContainer = React.forwardRef<
 })
 ChartContainer.displayName = "Chart"
 
+// List of Recharts-specific props that should not be passed to DOM elements
+const RECHARTS_DOM_PROPS = [
+  'allowEscapeViewBox',
+  'animationBegin',
+  'animationDuration',
+  'animationEasing',
+  'animationId',
+  'coordinate',
+  'cursor',
+  'viewBox',
+  'axisId',
+  'contentStyle',
+  'content',
+  'itemStyle',
+  'labelStyle',
+  'separator',
+  'wrapperStyle',
+  'filterNull',
+  'isAnimationActive',
+  'align',
+  'layout',
+  'iconSize',
+  'iconType',
+] as const
+
+type RechartsDomProp = typeof RECHARTS_DOM_PROPS[number]
+
+// Helper function to filter out Recharts props from props object
+const filterRechartsProps = (props: any) => {
+  const filtered: any = {}
+  const propsToFilter = new Set(RECHARTS_DOM_PROPS)
+  for (const key in props) {
+    if (!propsToFilter.has(key as RechartsDomProp)) {
+      filtered[key] = props[key]
+    }
+  }
+  return filtered
+}
+
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
     ([_, config]) => config.theme || config.color
@@ -150,24 +189,7 @@ const ChartTooltipContent = React.forwardRef<
     const { config } = useChart()
 
     // Filter out Recharts-specific props that shouldn't be on DOM elements
-    const {
-      allowEscapeViewBox,
-      animationBegin,
-      animationDuration,
-      animationEasing,
-      coordinate,
-      cursor,
-      viewBox,
-      axisId,
-      contentStyle,
-      content,
-      itemStyle,
-      labelStyle,
-      separator,
-      wrapperStyle,
-      // @ts-ignore - these are Recharts props
-      ...domProps
-    } = props as any
+    const domProps = filterRechartsProps(props)
 
     const tooltipLabel = React.useMemo(() => {
       if (hideLabel || !payload?.length) {
@@ -317,6 +339,9 @@ const ChartLegendContent = React.forwardRef<
   ) => {
     const { config } = useChart()
 
+    // Filter out Recharts-specific props that shouldn't be on DOM elements
+    const domProps = filterRechartsProps(props)
+
     if (!payload?.length) {
       return null
     }
@@ -329,7 +354,7 @@ const ChartLegendContent = React.forwardRef<
           verticalAlign === "top" ? "pb-3" : "pt-3",
           className
         )}
-        {...props}
+        {...domProps}
       >
         {payload.map((item) => {
           const key = `${nameKey || item.dataKey || "value"}`
