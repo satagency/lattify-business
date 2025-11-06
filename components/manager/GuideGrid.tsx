@@ -3,7 +3,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Grid, List, MoreVertical, Edit, Trash2 } from 'lucide-react';
 import {
@@ -135,14 +134,9 @@ function GuideCard({
 }) {
   return (
     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-medium transition-shadow relative group">
-      <div className="relative aspect-video bg-gray-100">
-        <Image
-          src={guide.thumbnail}
-          alt={guide.title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+      <div className="relative aspect-video bg-gray-200 flex items-center justify-center">
+        {/* Placeholder gray div - no images without database */}
+        <div className="w-full h-full bg-gray-200" />
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <GuideMenu guideId={guide.id} onMenuAction={onMenuAction} />
         </div>
@@ -179,14 +173,8 @@ function GuideListItem({
 }) {
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-medium transition-shadow flex items-center gap-4 group">
-      <div className="relative w-24 h-16 bg-gray-100 rounded overflow-hidden flex-shrink-0">
-        <Image
-          src={guide.thumbnail}
-          alt={guide.title}
-          fill
-          className="object-cover"
-          sizes="96px"
-        />
+      <div className="w-24 h-16 bg-gray-200 rounded flex-shrink-0">
+        {/* Placeholder gray div - no images without database */}
       </div>
       <div className="flex-1 min-w-0">
         <h3

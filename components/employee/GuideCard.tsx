@@ -3,7 +3,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Check } from 'lucide-react';
 import { Guide, GuideProgress } from '@/lib/types';
@@ -37,14 +36,9 @@ export function GuideCard({ guide, progress, onClick }: GuideCardProps) {
       )}
       onClick={handleClick}
     >
-      <div className="relative aspect-video bg-gray-100">
-        <Image
-          src={guide.thumbnail}
-          alt={guide.title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+      <div className="relative aspect-video bg-gray-200 flex items-center justify-center">
+        {/* Placeholder gray div - no images without database */}
+        <div className="w-full h-full bg-gray-200" />
         {isComplete && (
           <div className="absolute top-2 right-2 bg-black text-white p-1.5 rounded-full">
             <Check className="h-4 w-4" />

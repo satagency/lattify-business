@@ -4,7 +4,6 @@
 
 import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { ArrowLeft, Check, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/shared/Button';
 import { ProgressBar } from '@/components/employee/ProgressBar';
@@ -47,7 +46,6 @@ export default function GuideDetailPage() {
     number: i + 1,
     title: `Step ${i + 1}: ${guide.title} - Part ${i + 1}`,
     description: `This is step ${i + 1} of ${guide.title}. Follow the instructions carefully to complete this step.`,
-    image: guide.thumbnail,
   }));
 
   const handleStepComplete = (stepNumber: number) => {
@@ -75,14 +73,9 @@ export default function GuideDetailPage() {
       </button>
 
       <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-        <div className="relative aspect-video bg-gray-100">
-          <Image
-            src={guide.thumbnail}
-            alt={guide.title}
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
+        <div className="relative aspect-video bg-gray-200 flex items-center justify-center">
+          {/* Placeholder gray div - no images without database */}
+          <div className="w-full h-full bg-gray-200" />
           <div className="absolute top-4 left-4">
             <span className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded text-sm font-medium">
               {getCategoryLabel(guide.category)}
@@ -146,17 +139,8 @@ export default function GuideDetailPage() {
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
                     <p className="text-gray-600 mb-4">{step.description}</p>
-                    {step.image && (
-                      <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden mb-4">
-                        <Image
-                          src={step.image}
-                          alt={step.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 80vw"
-                        />
-                      </div>
-                    )}
+                    {/* Placeholder gray div - no images without database */}
+                    <div className="aspect-video bg-gray-200 rounded-lg mb-4" />
                     {isCurrent && !isCompleted && (
                       <Button onClick={() => handleStepComplete(step.number)}>
                         Mark Step Complete
