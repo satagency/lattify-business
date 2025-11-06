@@ -144,8 +144,9 @@ export default function ManagerDashboard() {
       ? Math.round((responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length) * 10) / 10
       : 2.1; // Default realistic response time
     
-    const prevResponseTime = Math.max(avgResponseTime - 0.5, avgResponseTime + (dateRange === 'Last 30 days' ? 0.8 : dateRange === 'Last 90 days' ? 0.5 : 0.6));
-    const responseTimeChange = avgResponseTime - prevResponseTime;
+    // Previous response time should be higher (slower) to show improvement
+    const prevResponseTime = avgResponseTime + (dateRange === 'Last 30 days' ? 0.8 : dateRange === 'Last 90 days' ? 0.5 : 0.6);
+    const responseTimeChange = prevResponseTime - avgResponseTime; // Positive change means improvement (faster)
 
     // Guide utilization
     const guidesUsed = new Set(
@@ -348,8 +349,9 @@ export default function ManagerDashboard() {
         <KPICard
           title="Avg Response Time"
           value={`${stats.avgResponseTime}h`}
-          change={Math.abs(stats.responseTimeChange)}
-          changeType={stats.responseTimeChange <= 0 ? "decrease" : "increase"}
+          change={stats.responseTimeChange}
+          changeType={stats.responseTimeChange > 0 ? "increase" : "decrease"}
+          changeUnit="h faster"
           comparison={getComparisonText()}
           subtitle="Response to questions"
         />

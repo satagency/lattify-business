@@ -9,8 +9,9 @@ import { cn } from '@/lib/utils';
 interface KPICardProps {
   title: string;
   value: string | number;
-  change?: number; // percentage change
+  change?: number; // percentage change or absolute change
   changeType?: 'increase' | 'decrease' | 'neutral';
+  changeUnit?: string; // Unit to display after change (default: '%')
   subtitle?: string;
   comparison?: string; // e.g., "vs previous 7 days"
   className?: string;
@@ -21,6 +22,7 @@ export function KPICard({
   value,
   change,
   changeType,
+  changeUnit = '%',
   subtitle,
   comparison,
   className,
@@ -46,7 +48,7 @@ export function KPICard({
         {change !== undefined && changeType && (
           <div className={cn('flex items-center gap-1 text-xs font-medium', getTrendColor())}>
             <TrendIcon className="h-3 w-3" />
-            <span>{Math.abs(change)}%</span>
+            <span>{Math.abs(change).toFixed(1)}{changeUnit}</span>
           </div>
         )}
       </div>
