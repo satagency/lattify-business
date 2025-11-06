@@ -24,35 +24,8 @@ interface AnalyticsChartsProps {
   analytics: Analytics;
 }
 
-const chartConfig = {
-  views: {
-    label: 'Views',
-    color: 'hsl(0, 0%, 0%)',
-  },
-  count: {
-    label: 'Help Requests',
-    color: 'hsl(0, 0%, 0%)',
-  },
-  completionRate: {
-    label: 'Completion Rate',
-    color: 'hsl(0, 0%, 0%)',
-  },
-  requests: {
-    label: 'Requests',
-    color: 'hsl(0, 0%, 0%)',
-  },
-  open: {
-    label: 'Open',
-    color: 'hsl(0, 0%, 0%)',
-  },
-  resolved: {
-    label: 'Resolved',
-    color: 'hsl(0, 0%, 40%)',
-  },
-} satisfies ChartConfig;
-
 export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
-  // Guide completion rates - Line chart
+  // Guide completion rates
   const guideCompletionData = React.useMemo(() => {
     const guideCompletionMap = new Map<string, { completed: number; total: number }>();
     
@@ -68,27 +41,23 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
       .map(([guideId, data]) => {
         const guide = mockGuides.find(g => g.id === guideId);
         const title = guide?.title || guideId;
+        const shortTitle = title.length > 12 ? title.substring(0, 12) + '...' : title;
         return {
-          guide: title.length > 15 ? title.substring(0, 15) + '...' : title,
-          rate: Math.round((data.completed / data.total) * 100),
+          guide: shortTitle,
+          completion: Math.round((data.completed / data.total) * 100),
         };
       })
-      .sort((a, b) => b.rate - a.rate)
+      .sort((a, b) => b.completion - a.completion)
       .slice(0, 6);
   }, []);
 
-  // Help requests over time - Stacked Area chart
-  const helpRequestsOverTime = React.useMemo(() => {
+  // Help requests over time
+  const helpRequestsData = React.useMemo(() => {
     const last7Days = Array.from({ length: 7 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() - (6 - i));
       const dateStr = date.toISOString().split('T')[0];
       
-      const total = mockQuestions.filter(q => {
-        const qDate = q.createdAt.toISOString().split('T')[0];
-        return qDate === dateStr;
-      }).length;
-
       const open = mockQuestions.filter(q => {
         const qDate = q.createdAt.toISOString().split('T')[0];
         return qDate === dateStr && q.status === 'open';
@@ -103,7 +72,6 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
         date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
         open,
         resolved,
-        total,
       };
     });
 
@@ -112,35 +80,64 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
 
   // Most viewed guides
   const mostViewedData = analytics.mostViewedGuides.map((item) => ({
-    guide: item.title.length > 18 ? item.title.substring(0, 18) + '...' : item.title,
+    guide: item.title.length > 14 ? item.title.substring(0, 14) + '...' : item.title,
     views: item.views,
   }));
 
   // Help requests by step
-  const helpRequestsData = analytics.helpRequests.map((item) => ({
-    step: item.step.length > 20 ? item.step.substring(0, 20) + '...' : item.step,
-    count: item.count,
+  const stepRequestsData = analytics.helpRequests.map((item) => ({
+    step: item.step.length > 18 ? item.step.substring(0, 18) + '...' : item.step,
+    requests: item.count,
   }));
+
+  const completionConfig = {
+    completion: {
+      label: "Completion Rate",
+      color: "hsl(0, 0%, 0%)",
+    },
+  } satisfies ChartConfig;
+
+  const requestsConfig = {
+    open: {
+      label: "Open",
+      color: "hsl(0, 0%, 0%)",
+    },
+    resolved: {
+      label: "Resolved",
+      color: "hsl(0, 0%, 40%)",
+    },
+  } satisfies ChartConfig;
+
+  const viewsConfig = {
+    views: {
+      label: "Views",
+      color: "hsl(0, 0%, 0%)",
+    },
+  } satisfies ChartConfig;
+
+  const stepConfig = {
+    requests: {
+      label: "Requests",
+      color: "hsl(0, 0%, 0%)",
+    },
+  } satisfies ChartConfig;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Guide Completion Rates - Line Chart */}
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Guide Completion Rates</h3>
-        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-          <LineChart accessibilityLayer data={guideCompletionData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="guide" 
+        <ChartContainer config={completionConfig} className="min-h-[300px] w-full">
+          <LineChart accessibilityLayer data={guideCompletionData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="guide"
               tickLine={false}
               axisLine={false}
               tickMargin={10}
-              angle={-45}
-              textAnchor="end"
-              height={80}
               tick={{ fontSize: 11 }}
             />
-            <YAxis 
+            <YAxis
               tickLine={false}
               axisLine={false}
               tickMargin={8}
@@ -148,13 +145,12 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
               domain={[0, 100]}
             />
             <ChartTooltip content={<ChartTooltipContent />} />
-            <Line 
+            <Line
               type="monotone"
-              dataKey="rate" 
-              stroke="var(--color-completionRate)" 
+              dataKey="completion"
+              stroke="var(--color-completion)"
               strokeWidth={2}
-              dot={{ fill: 'var(--color-completionRate)', r: 4 }}
-              activeDot={{ r: 6 }}
+              dot={false}
             />
           </LineChart>
         </ChartContainer>
@@ -163,35 +159,35 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
       {/* Help Requests Trend - Stacked Area Chart */}
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Help Requests Trend</h3>
-        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-          <AreaChart accessibilityLayer data={helpRequestsOverTime} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="date" 
+        <ChartContainer config={requestsConfig} className="min-h-[300px] w-full">
+          <AreaChart accessibilityLayer data={helpRequestsData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="date"
               tickLine={false}
               axisLine={false}
               tickMargin={10}
               tick={{ fontSize: 11 }}
             />
-            <YAxis 
+            <YAxis
               tickLine={false}
               axisLine={false}
               tickMargin={8}
               tick={{ fontSize: 11 }}
             />
             <ChartTooltip content={<ChartTooltipContent />} />
-            <Area 
+            <Area
               type="monotone"
-              dataKey="open" 
+              dataKey="open"
               stackId="1"
               fill="var(--color-open)"
               fillOpacity={0.6}
               stroke="var(--color-open)"
               strokeWidth={2}
             />
-            <Area 
+            <Area
               type="monotone"
-              dataKey="resolved" 
+              dataKey="resolved"
               stackId="1"
               fill="var(--color-resolved)"
               fillOpacity={0.6}
@@ -205,30 +201,27 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
       {/* Most Viewed Guides - Bar Chart */}
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Most Viewed Guides</h3>
-        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-          <BarChart accessibilityLayer data={mostViewedData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="guide" 
+        <ChartContainer config={viewsConfig} className="min-h-[300px] w-full">
+          <BarChart accessibilityLayer data={mostViewedData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="guide"
               tickLine={false}
               axisLine={false}
               tickMargin={10}
-              angle={-45}
-              textAnchor="end"
-              height={80}
               tick={{ fontSize: 11 }}
             />
-            <YAxis 
+            <YAxis
               tickLine={false}
               axisLine={false}
               tickMargin={8}
               tick={{ fontSize: 11 }}
             />
             <ChartTooltip content={<ChartTooltipContent />} />
-            <Bar 
-              dataKey="views" 
-              fill="var(--color-views)" 
-              radius={[4, 4, 0, 0]}
+            <Bar
+              dataKey="views"
+              fill="var(--color-views)"
+              radius={4}
             />
           </BarChart>
         </ChartContainer>
@@ -237,33 +230,32 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
       {/* Help Requests by Step - Horizontal Bar Chart */}
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Help Requests by Step</h3>
-        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-          <BarChart 
-            accessibilityLayer 
-            data={helpRequestsData} 
+        <ChartContainer config={stepConfig} className="min-h-[300px] w-full">
+          <BarChart
+            accessibilityLayer
+            data={stepRequestsData}
             layout="vertical"
-            margin={{ top: 20, right: 30, left: 130, bottom: 20 }}
           >
-            <CartesianGrid horizontal={true} vertical={false} strokeDasharray="3 3" />
-            <XAxis 
-              type="number" 
+            <CartesianGrid horizontal={true} vertical={false} />
+            <XAxis
+              type="number"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
               tick={{ fontSize: 11 }}
             />
-            <YAxis 
-              dataKey="step" 
-              type="category" 
+            <YAxis
+              dataKey="step"
+              type="category"
               tickLine={false}
               axisLine={false}
               width={120}
               tick={{ fontSize: 11 }}
             />
             <ChartTooltip content={<ChartTooltipContent />} />
-            <Bar 
-              dataKey="count" 
-              fill="var(--color-count)" 
+            <Bar
+              dataKey="requests"
+              fill="var(--color-requests)"
               radius={[0, 4, 4, 0]}
             />
           </BarChart>
@@ -272,4 +264,3 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
     </div>
   );
 }
-

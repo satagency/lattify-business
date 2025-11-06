@@ -134,6 +134,19 @@ const ChartTooltipContent = React.forwardRef<
   ) => {
     const { config } = useChart()
 
+    // Filter out Recharts-specific props that shouldn't be on DOM elements
+    const {
+      allowEscapeViewBox,
+      animationBegin,
+      animationDuration,
+      animationEasing,
+      coordinate,
+      cursor,
+      viewBox,
+      // @ts-ignore - these are Recharts props
+      ...domProps
+    } = props as any
+
     const tooltipLabel = React.useMemo(() => {
       if (hideLabel || !payload?.length) {
         return null
@@ -182,7 +195,7 @@ const ChartTooltipContent = React.forwardRef<
           "grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-xs shadow-md dark:border-gray-800 dark:bg-gray-900",
           className
         )}
-        {...props}
+        {...domProps}
       >
         {!nestLabel ? tooltipLabel : null}
         <div className="grid gap-1.5">
