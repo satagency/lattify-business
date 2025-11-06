@@ -44,13 +44,13 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:z-auto',
+          'fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:z-auto',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 lg:hidden">
-            <h2 className="text-lg font-semibold">Menu</h2>
+          <div className="flex items-center justify-between p-6 border-b border-gray-200 lg:hidden">
+            <h2 className="text-sm font-medium uppercase tracking-wide">Menu</h2>
             <button
               onClick={onClose}
               className="p-2 focus-ring rounded"
@@ -70,10 +70,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                   href={link.href}
                   onClick={onClose}
                   className={cn(
-                    'flex items-center gap-3 px-4 py-3 rounded-lg transition-colors focus-ring',
+                    'flex items-center gap-3 px-4 py-3 rounded-lg transition-all focus-ring',
                     isActive
                       ? 'bg-black text-white'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-black'
                   )}
                 >
                   <Icon className="h-5 w-5" />

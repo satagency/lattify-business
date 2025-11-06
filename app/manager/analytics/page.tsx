@@ -8,10 +8,10 @@ import { mockStepProblems } from '@/lib/data/mockStepProblems';
 
 export default function AnalyticsPage() {
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold mb-2">Analytics</h1>
-        <p className="text-gray-600">
+    <div className="space-y-10">
+      <div className="border-b border-gray-200 pb-8">
+        <h1 className="text-4xl font-light tracking-tight mb-3">Analytics</h1>
+        <p className="text-base text-gray-600 font-light leading-relaxed max-w-2xl">
           Detailed insights into your training program performance.
         </p>
       </div>
@@ -35,11 +35,11 @@ export default function AnalyticsPage() {
         />
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-lg p-8">
         <StepAnalytics problems={mockStepProblems} />
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-lg p-8">
         <AnalyticsCharts analytics={mockAnalytics} />
       </div>
     </div>

@@ -37,10 +37,10 @@ export default function QuestionsPage() {
 
   return (
     <>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">Questions & Answers</h1>
-          <p className="text-gray-600">
+      <div className="space-y-10">
+        <div className="border-b border-gray-200 pb-8">
+          <h1 className="text-4xl font-light tracking-tight mb-3">Questions & Answers</h1>
+          <p className="text-base text-gray-600 font-light leading-relaxed max-w-2xl">
             Review and answer questions from your team members.
           </p>
         </div>

@@ -45,18 +45,18 @@ export function GuideGrid({
       : guides.filter((guide) => guide.category === selectedCategory);
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
+        <div className="flex items-center gap-2 flex-wrap">
           {categories.map((category) => (
             <button
               key={category.value}
               onClick={() => setSelectedCategory(category.value)}
               className={cn(
-                'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                'px-4 py-2 rounded-lg text-xs font-medium transition-all uppercase tracking-wide',
                 selectedCategory === category.value
                   ? 'bg-black text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               )}
             >
               {category.label}
@@ -68,10 +68,10 @@ export function GuideGrid({
           <button
             onClick={() => setViewMode('grid')}
             className={cn(
-              'p-2 rounded-lg transition-colors',
+              'p-2 rounded-lg transition-all',
               viewMode === 'grid'
                 ? 'bg-black text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             )}
             aria-label="Grid view"
           >
@@ -80,10 +80,10 @@ export function GuideGrid({
           <button
             onClick={() => setViewMode('list')}
             className={cn(
-              'p-2 rounded-lg transition-colors',
+              'p-2 rounded-lg transition-all',
               viewMode === 'list'
                 ? 'bg-black text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             )}
             aria-label="List view"
           >

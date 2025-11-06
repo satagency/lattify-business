@@ -3,7 +3,6 @@
 'use client';
 
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface MetricsCardProps {
@@ -26,22 +25,17 @@ export function MetricsCard({
   const content = (
     <div
       className={cn(
-        'bg-white border border-gray-200 rounded-lg p-6',
-        isClickable && 'cursor-pointer hover:shadow-medium transition-shadow',
+        'bg-white border border-gray-200 rounded-lg p-8 transition-all',
+        isClickable && 'cursor-pointer hover:border-black hover:shadow-sm',
         className
       )}
       onClick={onClick}
     >
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
-          <p className="text-3xl font-bold text-black">{value}</p>
-          {subtitle && (
-            <p className="text-sm text-gray-500 mt-2">{subtitle}</p>
-          )}
-        </div>
-        {isClickable && (
-          <ArrowRight className="h-5 w-5 text-gray-400 flex-shrink-0" />
+      <div>
+        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">{title}</p>
+        <p className="text-5xl font-light tracking-tight text-black mb-2">{value}</p>
+        {subtitle && (
+          <p className="text-sm text-gray-600 font-light">{subtitle}</p>
         )}
       </div>
     </div>

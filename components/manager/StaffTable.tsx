@@ -86,33 +86,43 @@ export function StaffTable({ staff, onStaffClick }: StaffTableProps) {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-4">
+    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      <div className="p-6 border-b border-gray-200">
         <input
           type="text"
           placeholder="Search staff..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm"
         />
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
+        <table className="w-full">
           <thead>
             <tr className="border-b border-gray-200">
-              <th className="text-left py-3 px-4">
-                <SortButton field="name">Name</SortButton>
+              <th className="text-left py-4 px-6">
+                <SortButton field="name">
+                  <span className="text-xs font-medium uppercase tracking-wide text-gray-500">Name</span>
+                </SortButton>
               </th>
-              <th className="text-left py-3 px-4">
-                <SortButton field="role">Role</SortButton>
+              <th className="text-left py-4 px-6">
+                <SortButton field="role">
+                  <span className="text-xs font-medium uppercase tracking-wide text-gray-500">Role</span>
+                </SortButton>
               </th>
-              <th className="text-left py-3 px-4">
-                <SortButton field="status">Status</SortButton>
+              <th className="text-left py-4 px-6">
+                <SortButton field="status">
+                  <span className="text-xs font-medium uppercase tracking-wide text-gray-500">Status</span>
+                </SortButton>
               </th>
-              <th className="text-left py-3 px-4">Progress</th>
-              <th className="text-left py-3 px-4">
-                <SortButton field="lastActivity">Last Activity</SortButton>
+              <th className="text-left py-4 px-6">
+                <span className="text-xs font-medium uppercase tracking-wide text-gray-500">Progress</span>
+              </th>
+              <th className="text-left py-4 px-6">
+                <SortButton field="lastActivity">
+                  <span className="text-xs font-medium uppercase tracking-wide text-gray-500">Last Activity</span>
+                </SortButton>
               </th>
             </tr>
           </thead>
@@ -131,12 +141,16 @@ export function StaffTable({ staff, onStaffClick }: StaffTableProps) {
                   )}
                   onClick={() => onStaffClick?.(member.id)}
                 >
-                  <td className="py-4 px-4 font-medium">{member.name}</td>
-                  <td className="py-4 px-4 text-gray-600">{member.role}</td>
-                  <td className="py-4 px-4">
+                  <td className="py-5 px-6">
+                    <span className="font-medium text-sm">{member.name}</span>
+                  </td>
+                  <td className="py-5 px-6">
+                    <span className="text-sm text-gray-600">{member.role}</span>
+                  </td>
+                  <td className="py-5 px-6">
                     <span
                       className={cn(
-                        'inline-flex items-center px-2 py-1 rounded text-xs font-medium',
+                        'inline-flex items-center px-3 py-1 rounded text-xs font-medium tracking-wide',
                         getStatusColor(member.status),
                         member.status === 'active' || member.status === 'complete' || member.status === 'open'
                           ? 'text-white'
@@ -146,21 +160,21 @@ export function StaffTable({ staff, onStaffClick }: StaffTableProps) {
                       {member.status}
                     </span>
                   </td>
-                  <td className="py-4 px-4">
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <td className="py-5 px-6">
+                    <div className="flex items-center gap-3">
+                      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-black transition-all"
                           style={{ width: `${completionRate}%` }}
                         />
                       </div>
-                      <span className="text-sm text-gray-600 whitespace-nowrap">
+                      <span className="text-xs text-gray-600 whitespace-nowrap font-medium">
                         {member.completedGuides.length}/{member.assignedGuides.length}
                       </span>
                     </div>
                   </td>
-                  <td className="py-4 px-4 text-sm text-gray-600">
-                    {formatDate(member.lastActivity)}
+                  <td className="py-5 px-6">
+                    <span className="text-sm text-gray-600">{formatDate(member.lastActivity)}</span>
                   </td>
                 </tr>
               );
