@@ -26,7 +26,7 @@ export interface GuideProgress {
   staffId: string;
   completedSteps: number;
   totalSteps: number;
-  lastStep: number;
+  lastStep: Date | number; // Date when last activity occurred, or step number for backwards compatibility
   proofPhotos: string[];
   status: 'not_started' | 'in_progress' | 'awaiting_approval' | 'complete';
 }

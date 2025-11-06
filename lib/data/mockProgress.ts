@@ -2,6 +2,13 @@
 
 import { GuideProgress } from '@/lib/types';
 
+// Helper to get dates distributed across the last 90 days
+const getDateDaysAgo = (days: number): Date => {
+  const date = new Date();
+  date.setDate(date.getDate() - days);
+  return date;
+};
+
 export const mockProgress: GuideProgress[] = [
   // Maria Lopez - Line Cook
   {
@@ -9,7 +16,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-001',
     completedSteps: 12,
     totalSteps: 12,
-    lastStep: 12,
+    lastStep: getDateDaysAgo(5), // Completed 5 days ago
     proofPhotos: [],
     status: 'complete',
   },
@@ -18,7 +25,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-001',
     completedSteps: 10,
     totalSteps: 10,
-    lastStep: 10,
+    lastStep: getDateDaysAgo(12), // Completed 12 days ago
     proofPhotos: [],
     status: 'complete',
   },
@@ -27,7 +34,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-001',
     completedSteps: 3,
     totalSteps: 9,
-    lastStep: 3,
+    lastStep: getDateDaysAgo(1), // Last activity yesterday
     proofPhotos: [],
     status: 'in_progress',
   },
@@ -37,7 +44,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-002',
     completedSteps: 11,
     totalSteps: 11,
-    lastStep: 11,
+    lastStep: getDateDaysAgo(8), // Completed 8 days ago
     proofPhotos: [],
     status: 'complete',
   },
@@ -46,7 +53,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-002',
     completedSteps: 4,
     totalSteps: 7,
-    lastStep: 4,
+    lastStep: getDateDaysAgo(2), // Last activity 2 days ago
     proofPhotos: [],
     status: 'in_progress',
   },
@@ -56,18 +63,18 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-003',
     completedSteps: 8,
     totalSteps: 8,
-    lastStep: 8,
+    lastStep: getDateDaysAgo(15), // Completed 15 days ago
     proofPhotos: [],
     status: 'complete',
   },
   {
     guideId: 'guide-006',
     staffId: 'staff-003',
-    completedSteps: 0,
+    completedSteps: 2,
     totalSteps: 7,
-    lastStep: 0,
+    lastStep: getDateDaysAgo(20), // Last activity 20 days ago
     proofPhotos: [],
-    status: 'not_started',
+    status: 'in_progress',
   },
   // Michael Brown - Head Chef
   {
@@ -75,7 +82,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-004',
     completedSteps: 12,
     totalSteps: 12,
-    lastStep: 12,
+    lastStep: getDateDaysAgo(3), // Completed 3 days ago
     proofPhotos: [],
     status: 'complete',
   },
@@ -84,7 +91,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-004',
     completedSteps: 10,
     totalSteps: 10,
-    lastStep: 10,
+    lastStep: getDateDaysAgo(7), // Completed 7 days ago
     proofPhotos: [],
     status: 'complete',
   },
@@ -93,7 +100,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-004',
     completedSteps: 9,
     totalSteps: 9,
-    lastStep: 9,
+    lastStep: getDateDaysAgo(10), // Completed 10 days ago
     proofPhotos: [],
     status: 'complete',
   },
@@ -101,20 +108,20 @@ export const mockProgress: GuideProgress[] = [
   {
     guideId: 'guide-004',
     staffId: 'staff-005',
-    completedSteps: 0,
+    completedSteps: 3,
     totalSteps: 11,
-    lastStep: 0,
+    lastStep: getDateDaysAgo(18), // Last activity 18 days ago
     proofPhotos: [],
-    status: 'not_started',
+    status: 'in_progress',
   },
   {
     guideId: 'guide-006',
     staffId: 'staff-005',
-    completedSteps: 0,
+    completedSteps: 1,
     totalSteps: 7,
-    lastStep: 0,
+    lastStep: getDateDaysAgo(25), // Last activity 25 days ago
     proofPhotos: [],
-    status: 'not_started',
+    status: 'in_progress',
   },
   // David Martinez - Prep Cook
   {
@@ -122,7 +129,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-006',
     completedSteps: 6,
     totalSteps: 10,
-    lastStep: 6,
+    lastStep: getDateDaysAgo(4), // Last activity 4 days ago
     proofPhotos: [],
     status: 'in_progress',
   },
@@ -131,7 +138,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-006',
     completedSteps: 9,
     totalSteps: 9,
-    lastStep: 9,
+    lastStep: getDateDaysAgo(14), // Completed 14 days ago
     proofPhotos: [],
     status: 'complete',
   },
@@ -141,7 +148,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-007',
     completedSteps: 9,
     totalSteps: 9,
-    lastStep: 9,
+    lastStep: getDateDaysAgo(6), // Completed 6 days ago
     proofPhotos: [],
     status: 'complete',
   },
@@ -150,7 +157,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-007',
     completedSteps: 2,
     totalSteps: 7,
-    lastStep: 2,
+    lastStep: getDateDaysAgo(3), // Last activity 3 days ago
     proofPhotos: [],
     status: 'in_progress',
   },
@@ -160,7 +167,7 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-008',
     completedSteps: 8,
     totalSteps: 8,
-    lastStep: 8,
+    lastStep: getDateDaysAgo(9), // Completed 9 days ago
     proofPhotos: [],
     status: 'complete',
   },
@@ -169,9 +176,109 @@ export const mockProgress: GuideProgress[] = [
     staffId: 'staff-008',
     completedSteps: 5,
     totalSteps: 11,
-    lastStep: 5,
+    lastStep: getDateDaysAgo(11), // Last activity 11 days ago
     proofPhotos: [],
     status: 'in_progress',
+  },
+  // Additional historical data for 30-90 day ranges
+  {
+    guideId: 'guide-001',
+    staffId: 'staff-006',
+    completedSteps: 12,
+    totalSteps: 12,
+    lastStep: getDateDaysAgo(35), // Completed 35 days ago
+    proofPhotos: [],
+    status: 'complete',
+  },
+  {
+    guideId: 'guide-002',
+    staffId: 'staff-002',
+    completedSteps: 8,
+    totalSteps: 8,
+    lastStep: getDateDaysAgo(42), // Completed 42 days ago
+    proofPhotos: [],
+    status: 'complete',
+  },
+  {
+    guideId: 'guide-003',
+    staffId: 'staff-007',
+    completedSteps: 10,
+    totalSteps: 10,
+    lastStep: getDateDaysAgo(28), // Completed 28 days ago
+    proofPhotos: [],
+    status: 'complete',
+  },
+  {
+    guideId: 'guide-004',
+    staffId: 'staff-001',
+    completedSteps: 11,
+    totalSteps: 11,
+    lastStep: getDateDaysAgo(45), // Completed 45 days ago
+    proofPhotos: [],
+    status: 'complete',
+  },
+  {
+    guideId: 'guide-007',
+    staffId: 'staff-003',
+    completedSteps: 9,
+    totalSteps: 9,
+    lastStep: getDateDaysAgo(38), // Completed 38 days ago
+    proofPhotos: [],
+    status: 'complete',
+  },
+  {
+    guideId: 'guide-005',
+    staffId: 'staff-002',
+    completedSteps: 9,
+    totalSteps: 9,
+    lastStep: getDateDaysAgo(55), // Completed 55 days ago
+    proofPhotos: [],
+    status: 'complete',
+  },
+  {
+    guideId: 'guide-008',
+    staffId: 'staff-005',
+    completedSteps: 8,
+    totalSteps: 8,
+    lastStep: getDateDaysAgo(32), // Completed 32 days ago
+    proofPhotos: [],
+    status: 'complete',
+  },
+  {
+    guideId: 'guide-006',
+    staffId: 'staff-004',
+    completedSteps: 7,
+    totalSteps: 7,
+    lastStep: getDateDaysAgo(60), // Completed 60 days ago
+    proofPhotos: [],
+    status: 'complete',
+  },
+  {
+    guideId: 'guide-002',
+    staffId: 'staff-005',
+    completedSteps: 5,
+    totalSteps: 8,
+    lastStep: getDateDaysAgo(48), // Last activity 48 days ago
+    proofPhotos: [],
+    status: 'in_progress',
+  },
+  {
+    guideId: 'guide-001',
+    staffId: 'staff-007',
+    completedSteps: 12,
+    totalSteps: 12,
+    lastStep: getDateDaysAgo(70), // Completed 70 days ago
+    proofPhotos: [],
+    status: 'complete',
+  },
+  {
+    guideId: 'guide-003',
+    staffId: 'staff-002',
+    completedSteps: 10,
+    totalSteps: 10,
+    lastStep: getDateDaysAgo(65), // Completed 65 days ago
+    proofPhotos: [],
+    status: 'complete',
   },
 ];
 
