@@ -9,6 +9,9 @@ export interface Guide {
   estimatedTime: number; // minutes
   createdAt: Date;
   updatedAt: Date;
+  duration?: string; // e.g., "5 min", "2 sec"
+  viewCount?: number;
+  recordedAt?: Date; // Recording date for display
 }
 
 export interface StaffMember {

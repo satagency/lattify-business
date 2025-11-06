@@ -5,6 +5,22 @@
 import React, { useState } from 'react';
 import { Header } from '@/components/shared/Header';
 import { Sidebar } from '@/components/shared/Sidebar';
+import { ViewModeProvider, useViewMode } from '@/lib/contexts/ViewModeContext';
+
+function HeaderWithViewMode({ isMenuOpen, setIsMenuOpen }: { isMenuOpen: boolean; setIsMenuOpen: (open: boolean) => void }) {
+  const { viewMode, setViewMode } = useViewMode();
+  
+  return (
+    <Header
+      title="Manager Dashboard"
+      showMenu={true}
+      isMenuOpen={isMenuOpen}
+      onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
+      viewMode={viewMode}
+      onViewModeChange={setViewMode}
+    />
+  );
+}
 
 export default function ManagerLayout({
   children,
@@ -14,20 +30,17 @@ export default function ManagerLayout({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header
-        title="Manager Dashboard"
-        showMenu={true}
-        isMenuOpen={isMenuOpen}
-        onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
-      />
-      <div className="flex">
-        <Sidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-        <main className="flex-1 p-6 lg:p-8 bg-gray-50">
-          {children}
-        </main>
+    <ViewModeProvider>
+      <div className="min-h-screen bg-white">
+        <HeaderWithViewMode isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <div className="flex">
+          <Sidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+          <main className="flex-1 p-6 lg:p-8 bg-white">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </ViewModeProvider>
   );
 }
 

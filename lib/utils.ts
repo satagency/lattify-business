@@ -62,3 +62,27 @@ export function lastStepToDate(lastStep: Date | number): Date {
   return date;
 }
 
+// Format relative date like "Recorded 9 days ago" or "Recorded a month ago"
+export function formatRecordedDate(date: Date): string {
+  const now = new Date();
+  const diffTime = Math.abs(now.getTime() - date.getTime());
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  
+  if (diffDays === 0) {
+    return 'Recorded today';
+  } else if (diffDays === 1) {
+    return 'Recorded yesterday';
+  } else if (diffDays < 7) {
+    return `Recorded ${diffDays} days ago`;
+  } else if (diffDays < 30) {
+    const weeks = Math.floor(diffDays / 7);
+    return weeks === 1 ? 'Recorded a week ago' : `Recorded ${weeks} weeks ago`;
+  } else if (diffDays < 365) {
+    const months = Math.floor(diffDays / 30);
+    return months === 1 ? 'Recorded a month ago' : `Recorded ${months} months ago`;
+  } else {
+    const years = Math.floor(diffDays / 365);
+    return years === 1 ? 'Recorded a year ago' : `Recorded ${years} years ago`;
+  }
+}
+

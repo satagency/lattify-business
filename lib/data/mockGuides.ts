@@ -11,7 +11,10 @@ export const mockGuides: Guide[] = [
     totalSteps: 12,
     estimatedTime: 25,
     createdAt: new Date('2025-01-08'),
-    updatedAt: new Date('2025-01-20'), // Updated based on feedback
+    updatedAt: new Date('2025-01-20'),
+    duration: '5 min',
+    viewCount: 12,
+    recordedAt: new Date('2025-01-14'),
   },
   {
     id: 'guide-002',
@@ -22,6 +25,9 @@ export const mockGuides: Guide[] = [
     estimatedTime: 15,
     createdAt: new Date('2025-01-10'),
     updatedAt: new Date('2025-01-18'),
+    duration: '4 min',
+    viewCount: 8,
+    recordedAt: new Date('2025-01-16'),
   },
   {
     id: 'guide-003',
@@ -32,6 +38,9 @@ export const mockGuides: Guide[] = [
     estimatedTime: 20,
     createdAt: new Date('2025-01-12'),
     updatedAt: new Date('2025-01-19'),
+    duration: '3 min',
+    viewCount: 25,
+    recordedAt: new Date('2025-01-18'),
   },
   {
     id: 'guide-004',
@@ -42,6 +51,9 @@ export const mockGuides: Guide[] = [
     estimatedTime: 22,
     createdAt: new Date('2025-01-08'),
     updatedAt: new Date('2025-01-21'),
+    duration: '2 sec',
+    viewCount: 5,
+    recordedAt: new Date('2025-01-22'),
   },
   {
     id: 'guide-005',
@@ -52,6 +64,9 @@ export const mockGuides: Guide[] = [
     estimatedTime: 18,
     createdAt: new Date('2025-01-14'),
     updatedAt: new Date('2025-01-20'),
+    duration: '6 min',
+    viewCount: 18,
+    recordedAt: new Date('2025-01-19'),
   },
   {
     id: 'guide-006',
@@ -62,6 +77,9 @@ export const mockGuides: Guide[] = [
     estimatedTime: 15,
     createdAt: new Date('2025-01-11'),
     updatedAt: new Date('2025-01-22'),
+    duration: '4 min',
+    viewCount: 32,
+    recordedAt: new Date('2025-01-17'),
   },
   {
     id: 'guide-007',
@@ -72,6 +90,9 @@ export const mockGuides: Guide[] = [
     estimatedTime: 20,
     createdAt: new Date('2025-01-15'),
     updatedAt: new Date('2025-01-23'),
+    duration: '5 min',
+    viewCount: 14,
+    recordedAt: new Date('2025-01-20'),
   },
   {
     id: 'guide-008',
@@ -82,6 +103,9 @@ export const mockGuides: Guide[] = [
     estimatedTime: 16,
     createdAt: new Date('2025-01-09'),
     updatedAt: new Date('2025-01-17'),
+    duration: '3 min',
+    viewCount: 9,
+    recordedAt: new Date('2025-01-15'),
   },
 ];
 
