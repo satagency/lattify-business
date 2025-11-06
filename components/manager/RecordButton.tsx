@@ -4,36 +4,68 @@
 
 import React from 'react';
 import { ChevronUp } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface RecordButtonProps {
   onRecord?: () => void;
   onUpload?: () => void;
+  className?: string;
 }
 
-export function RecordButton({ onRecord, onUpload }: RecordButtonProps) {
+export function RecordButton({ 
+  onRecord, 
+  onUpload,
+  className 
+}: RecordButtonProps) {
+  const handleRecordClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onRecord?.();
+  };
+
+  const handleUploadClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onUpload?.();
+  };
+
   return (
-    <div className="inline-flex items-center bg-red-600 hover:bg-red-700 rounded-full transition-colors overflow-hidden">
-      {/* Main Record Button */}
+    <div 
+      className={cn(
+        'inline-flex items-center rounded-full bg-red-600 hover:bg-red-700 transition-colors',
+        className
+      )}
+      role="group"
+    >
       <button
-        onClick={onRecord}
-        className="flex items-center gap-2.5 text-white px-5 py-2.5 bg-transparent hover:bg-red-700 transition-colors focus-ring border-none outline-none"
+        type="button"
+        onClick={handleRecordClick}
+        className={cn(
+          'flex items-center gap-2.5 px-5 py-2.5 text-white',
+          'hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2',
+          'transition-colors rounded-l-full'
+        )}
+        aria-label="Record video"
       >
-        {/* Solid white circle */}
-        <div className="w-2 h-2 rounded-full bg-white flex-shrink-0" />
-        <span className="font-medium text-sm">Record</span>
+        <span className="w-2 h-2 rounded-full bg-white" aria-hidden="true" />
+        <span className="text-sm font-medium">Record</span>
       </button>
-      
-      {/* Separator */}
-      <div className="h-4 w-px bg-red-500/40 flex-shrink-0" />
-      
-      {/* Upload Button (Up Arrow) */}
+
+      <div 
+        className="h-4 w-px bg-red-500/40 flex-shrink-0" 
+        aria-hidden="true"
+      />
+
       <button
-        onClick={onUpload}
-        className="flex items-center justify-center text-white px-3 py-2.5 bg-transparent hover:bg-red-700 transition-colors focus-ring border-none outline-none flex-shrink-0"
+        type="button"
+        onClick={handleUploadClick}
+        className={cn(
+          'flex items-center justify-center px-3 py-2.5 text-white',
+          'hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2',
+          'transition-colors rounded-r-full'
+        )}
+        aria-label="Upload video"
       >
-        <ChevronUp className="w-4 h-4 text-white" />
+        <ChevronUp className="w-4 h-4" aria-hidden="true" />
       </button>
     </div>
   );
 }
-
