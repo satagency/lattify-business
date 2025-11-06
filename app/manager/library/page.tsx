@@ -18,12 +18,30 @@ export default function LibraryPage() {
   };
 
   const handleMenuAction = (action: string, guideId: string) => {
-    if (action === 'edit') {
-      console.log('Edit guide:', guideId);
-    } else if (action === 'delete') {
-      if (confirm('Are you sure you want to delete this guide?')) {
-        console.log('Delete guide:', guideId);
-      }
+    switch (action) {
+      case 'view':
+        handleGuideClick(guideId);
+        break;
+      case 'assign':
+        console.log('Assign guide:', guideId);
+        // TODO: Open assign dialog/modal
+        break;
+      case 'duplicate':
+        console.log('Duplicate guide:', guideId);
+        // TODO: Implement duplicate functionality
+        break;
+      case 'generate-qr':
+        console.log('Generate QR for guide:', guideId);
+        // TODO: Generate QR code and show modal/dialog
+        break;
+      case 'delete':
+        if (confirm('Are you sure you want to delete this guide?')) {
+          console.log('Delete guide:', guideId);
+          // TODO: Implement delete functionality
+        }
+        break;
+      default:
+        console.log('Unknown action:', action, 'for guide:', guideId);
     }
   };
 

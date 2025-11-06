@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Play, Link2, BarChart3, Layers, MoreVertical } from 'lucide-react';
+import { Play, Eye, UserPlus, Copy, Trash2, QrCode, MoreVertical, Link2, BarChart3, Layers } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -82,68 +82,58 @@ function LibraryGridItem({
         <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
           {duration}
         </div>
-        {/* Action icons overlay */}
+        {/* Quick actions icon lineup */}
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
           <button
             className="p-1.5 bg-black/70 text-white rounded hover:bg-black/90 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
-              console.log('Copy link:', guide.id);
+              onGuideClick?.(guide.id);
             }}
-            title="Copy link"
+            title="View"
           >
-            <Link2 className="w-3.5 h-3.5" />
+            <Eye className="w-3.5 h-3.5" />
           </button>
           <button
             className="p-1.5 bg-black/70 text-white rounded hover:bg-black/90 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
-              router.push(`/manager/library/${guide.id}/analytics`);
+              onMenuAction?.('assign', guide.id);
             }}
-            title="View analytics"
+            title="Assign"
           >
-            <BarChart3 className="w-3.5 h-3.5" />
+            <UserPlus className="w-3.5 h-3.5" />
           </button>
           <button
             className="p-1.5 bg-black/70 text-white rounded hover:bg-black/90 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
-              console.log('Add to stack:', guide.id);
+              onMenuAction?.('duplicate', guide.id);
             }}
-            title="Add to stack"
+            title="Duplicate"
           >
-            <Layers className="w-3.5 h-3.5" />
+            <Copy className="w-3.5 h-3.5" />
           </button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                className="p-1.5 bg-black/70 text-white rounded hover:bg-black/90 transition-colors"
-                onClick={(e) => e.stopPropagation()}
-                title="More options"
-              >
-                <MoreVertical className="w-3.5 h-3.5" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-[120px]">
-              <DropdownMenuItem
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onMenuAction?.('edit', guide.id);
-                }}
-              >
-                Edit
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onMenuAction?.('delete', guide.id);
-                }}
-                className="text-red-600"
-              >
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <button
+            className="p-1.5 bg-black/70 text-white rounded hover:bg-black/90 transition-colors"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMenuAction?.('generate-qr', guide.id);
+            }}
+            title="Generate QR"
+          >
+            <QrCode className="w-3.5 h-3.5" />
+          </button>
+          <button
+            className="p-1.5 bg-black/70 text-white rounded hover:bg-red-600 transition-colors"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMenuAction?.('delete', guide.id);
+            }}
+            title="Delete"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
 
@@ -203,7 +193,7 @@ function LibraryListItem({
         </p>
       </div>
 
-      {/* Action Icons */}
+      {/* Quick Actions */}
       <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
         {/* Play Count */}
         <button
@@ -217,73 +207,57 @@ function LibraryListItem({
           <span>{viewCount}</span>
         </button>
 
-        {/* Link */}
+        {/* Quick Actions Icons */}
         <button
           className="p-2 text-gray-600 hover:text-gray-900 rounded transition-colors"
           onClick={(e) => {
             e.stopPropagation();
-            console.log('Copy link:', guide.id);
+            onGuideClick?.(guide.id);
           }}
-          title="Copy link"
+          title="View"
         >
-          <Link2 className="w-4 h-4" />
+          <Eye className="w-4 h-4" />
         </button>
-
-        {/* Analytics */}
         <button
           className="p-2 text-gray-600 hover:text-gray-900 rounded transition-colors"
           onClick={(e) => {
             e.stopPropagation();
-            router.push(`/manager/library/${guide.id}/analytics`);
+            onMenuAction?.('assign', guide.id);
           }}
-          title="View analytics"
+          title="Assign"
         >
-          <BarChart3 className="w-4 h-4" />
+          <UserPlus className="w-4 h-4" />
         </button>
-
-        {/* Stack */}
         <button
           className="p-2 text-gray-600 hover:text-gray-900 rounded transition-colors"
           onClick={(e) => {
             e.stopPropagation();
-            console.log('Add to stack:', guide.id);
+            onMenuAction?.('duplicate', guide.id);
           }}
-          title="Add to stack"
+          title="Duplicate"
         >
-          <Layers className="w-4 h-4" />
+          <Copy className="w-4 h-4" />
         </button>
-
-        {/* More Options */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button
-              className="p-2 text-gray-600 hover:text-gray-900 rounded transition-colors"
-              onClick={(e) => e.stopPropagation()}
-              title="More options"
-            >
-              <MoreVertical className="w-4 h-4" />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="min-w-[120px]">
-            <DropdownMenuItem
-              onClick={(e) => {
-                e.stopPropagation();
-                onMenuAction?.('edit', guide.id);
-              }}
-            >
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={(e) => {
-                e.stopPropagation();
-                onMenuAction?.('delete', guide.id);
-              }}
-              className="text-red-600"
-            >
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <button
+          className="p-2 text-gray-600 hover:text-gray-900 rounded transition-colors"
+          onClick={(e) => {
+            e.stopPropagation();
+            onMenuAction?.('generate-qr', guide.id);
+          }}
+          title="Generate QR"
+        >
+          <QrCode className="w-4 h-4" />
+        </button>
+        <button
+          className="p-2 text-gray-600 hover:text-red-600 rounded transition-colors"
+          onClick={(e) => {
+            e.stopPropagation();
+            onMenuAction?.('delete', guide.id);
+          }}
+          title="Delete"
+        >
+          <Trash2 className="w-4 h-4" />
+        </button>
       </div>
     </div>
   );
