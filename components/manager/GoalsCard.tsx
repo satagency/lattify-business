@@ -35,9 +35,9 @@ export function GoalsCard({ goals }: GoalsCardProps) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="bg-white border border-gray-200 rounded-lg p-6 flex flex-col">
       <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Hotel Goals</h3>
-      <div className="space-y-6">
+      <div className="space-y-6 flex-1">
         {goals.map((goal) => {
           const Icon = getCategoryIcon(goal.category);
           const progress = Math.min((goal.current / goal.target) * 100, 100);

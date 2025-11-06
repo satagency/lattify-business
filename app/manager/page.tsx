@@ -330,6 +330,38 @@ export default function ManagerDashboard() {
         </Link>
       </div>
 
+      {/* What's Happening - Dynamic based on date range */}
+      <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-medium">{getActivityHeader()}</h2>
+        </div>
+        <p className="text-2xl font-light text-gray-700 leading-relaxed">
+          {dateRange === 'Last 7 days' ? 'This week' : dateRange === 'Last 30 days' ? 'This month' : dateRange === 'Last 90 days' ? 'This quarter' : 'Today'}: <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><CheckCircle2 className="h-5 w-5" /><span>{activityStats.completed}</span> completions</Link>, <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><Clock className="h-5 w-5" /><span>{activityStats.inProgress}</span> in progress</Link>, <Link href="/manager/questions" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><MessageSquare className="h-5 w-5" /><span>{activityStats.openQuestions}</span> open questions</Link>, and <Link href="/manager/photos" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><AlertCircle className="h-5 w-5" /><span>{activityStats.pendingProofs}</span> pending proofs</Link>.
+        </p>
+      </div>
+
+      {/* Performance Charts */}
+      <DashboardCharts />
+
+      {/* Section Divider */}
+      <div className="flex items-center gap-4">
+        <div className="flex-1 border-t border-gray-200"></div>
+        <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wide">About this property</h2>
+        <div className="flex-1 border-t border-gray-200"></div>
+      </div>
+
+      {/* Hotel Context & Goals */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
+          <HotelInfoCard hotel={mockHotelInfo} />
+          <GoalsCard goals={mockHotelGoals} />
+        </div>
+        <div className="space-y-6">
+          <ManagerInfoCard manager={mockManagerInfo} />
+          <RankingsCard rankings={mockRankings} />
+        </div>
+      </div>
+
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
@@ -362,31 +394,6 @@ export default function ManagerDashboard() {
           changeType={stats.utilizationChange >= 0 ? "increase" : "decrease"}
           comparison={getComparisonText()}
         />
-      </div>
-
-      {/* What's Happening - Dynamic based on date range */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-medium">{getActivityHeader()}</h2>
-        </div>
-        <p className="text-2xl font-light text-gray-700 leading-relaxed">
-          {dateRange === 'Last 7 days' ? 'This week' : dateRange === 'Last 30 days' ? 'This month' : dateRange === 'Last 90 days' ? 'This quarter' : 'Today'}: <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><CheckCircle2 className="h-5 w-5" /><span>{activityStats.completed}</span> completions</Link>, <Link href="/manager/staff" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><Clock className="h-5 w-5" /><span>{activityStats.inProgress}</span> in progress</Link>, <Link href="/manager/questions" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><MessageSquare className="h-5 w-5" /><span>{activityStats.openQuestions}</span> open questions</Link>, and <Link href="/manager/photos" className="inline-flex items-center gap-1 font-medium text-black hover:underline"><AlertCircle className="h-5 w-5" /><span>{activityStats.pendingProofs}</span> pending proofs</Link>.
-        </p>
-      </div>
-
-      {/* Performance Charts */}
-      <DashboardCharts />
-
-      {/* Hotel Context & Goals */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <HotelInfoCard hotel={mockHotelInfo} />
-          <GoalsCard goals={mockHotelGoals} />
-        </div>
-        <div className="space-y-6">
-          <ManagerInfoCard manager={mockManagerInfo} />
-          <RankingsCard rankings={mockRankings} />
-        </div>
       </div>
     </div>
   );

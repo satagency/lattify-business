@@ -63,7 +63,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           <nav className="flex-1 p-4 space-y-1">
             {managerLinks.map((link) => {
               const Icon = link.icon;
-              const isActive = pathname === link.href;
+              // Library should be active for /manager/library and all its sub-routes
+              const isActive = link.href === '/manager/library' 
+                ? pathname?.startsWith('/manager/library')
+                : pathname === link.href;
               return (
                 <Link
                   key={link.href}

@@ -64,6 +64,7 @@ export interface HotelInfo {
   starRating: number;
   totalRooms: number;
   brand?: string;
+  image?: string; // Hotel photo/image URL
 }
 
 export interface ManagerInfo {
@@ -95,5 +96,40 @@ export interface Ranking {
     value: number;
     rank: number;
   }>;
+}
+
+export interface VideoVisit {
+  id: string;
+  date: Date;
+  visitor: string;
+  visitorId?: string;
+  staffId?: string; // Link to staff member
+  email: string | 'Private' | 'N/A';
+  played: boolean;
+  device: 'desktop' | 'mobile' | 'tablet';
+  os: 'macos' | 'ios' | 'android' | 'windows';
+}
+
+export interface VideoPlay {
+  date: Date;
+  count: number;
+}
+
+export interface VideoEngagement {
+  time: number; // seconds
+  engagement: number; // 0-100
+}
+
+export interface VideoAnalytics {
+  guideId: string;
+  visits: VideoVisit[];
+  plays: VideoPlay[];
+  engagement: VideoEngagement[];
+  totalVisits: number;
+  uniqueVisits: number;
+  totalPlays: number;
+  uniquePlays: number;
+  engagementPercent: number | null;
+  clickThroughPercent: number | null;
 }
 

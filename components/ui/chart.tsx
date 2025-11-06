@@ -94,6 +94,7 @@ const RECHARTS_DOM_PROPS = [
   'layout',
   'iconSize',
   'iconType',
+  'itemSorter',
 ] as const
 
 type RechartsDomProp = typeof RECHARTS_DOM_PROPS[number]

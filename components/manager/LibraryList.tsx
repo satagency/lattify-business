@@ -3,6 +3,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { Play, Link2, BarChart3, Layers, MoreVertical } from 'lucide-react';
 import {
   DropdownMenu,
@@ -65,6 +66,7 @@ function LibraryGridItem({
   onGuideClick?: (guideId: string) => void;
   onMenuAction?: (action: string, guideId: string) => void;
 }) {
+  const router = useRouter();
   const recordedDate = guide.recordedAt || guide.createdAt;
   const duration = guide.duration || `${guide.estimatedTime} min`;
   const viewCount = guide.viewCount || 0;
@@ -96,7 +98,7 @@ function LibraryGridItem({
             className="p-1.5 bg-black/70 text-white rounded hover:bg-black/90 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
-              console.log('View analytics:', guide.id);
+              router.push(`/manager/library/${guide.id}/analytics`);
             }}
             title="View analytics"
           >
@@ -171,6 +173,7 @@ function LibraryListItem({
   onGuideClick?: (guideId: string) => void;
   onMenuAction?: (action: string, guideId: string) => void;
 }) {
+  const router = useRouter();
   const recordedDate = guide.recordedAt || guide.createdAt;
   const duration = guide.duration || `${guide.estimatedTime} min`;
   const viewCount = guide.viewCount || 0;
@@ -231,7 +234,7 @@ function LibraryListItem({
           className="p-2 text-gray-600 hover:text-gray-900 rounded transition-colors"
           onClick={(e) => {
             e.stopPropagation();
-            console.log('View analytics:', guide.id);
+            router.push(`/manager/library/${guide.id}/analytics`);
           }}
           title="View analytics"
         >

@@ -10,6 +10,7 @@ export const mockHotelInfo: HotelInfo = {
   starRating: 4,
   totalRooms: 120,
   brand: 'Morningside Hospitality',
+  image: '/images/hotel-placeholder.jpg', // Placeholder - replace with actual hotel image
 };
 
 export const mockManagerInfo: ManagerInfo = {

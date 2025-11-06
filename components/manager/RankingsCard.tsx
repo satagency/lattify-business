@@ -46,12 +46,12 @@ export function RankingsCard({ rankings }: RankingsCardProps) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="bg-white border border-gray-200 rounded-lg p-6 flex flex-col">
       <div className="flex items-center gap-2 mb-6">
         <Award className="h-4 w-4 text-gray-500" />
         <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500">Competitive Rankings</h3>
       </div>
-      <div className="space-y-6">
+      <div className="space-y-6 flex-1">
         {rankings.map((ranking, index) => {
           const Icon = getComparisonIcon(ranking.comparison);
           const isLast = index === rankings.length - 1;
