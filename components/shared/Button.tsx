@@ -19,10 +19,10 @@ export function Button({
   const baseStyles = 'font-medium rounded transition-colors focus-ring disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variants = {
-    primary: 'bg-black text-white hover:bg-gray-900',
-    secondary: 'bg-gray-100 text-black hover:bg-gray-200',
-    outline: 'border-2 border-black text-black hover:bg-gray-50',
-    ghost: 'text-black hover:bg-gray-100',
+    primary: 'bg-white text-black hover:bg-gray-100',
+    secondary: 'bg-gray-700 text-gray-100 hover:bg-gray-600',
+    outline: 'border-2 border-white text-white hover:bg-gray-900',
+    ghost: 'text-white hover:bg-gray-900',
   };
   
   const sizes = {

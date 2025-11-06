@@ -47,8 +47,8 @@ export default function EmployeeDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold mb-2">My Training</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold mb-2 text-white">My Training</h1>
+        <p className="text-gray-400">
           Complete your assigned training guides to advance your skills.
         </p>
       </div>
@@ -56,7 +56,7 @@ export default function EmployeeDashboard() {
       <SearchBar onSearch={setSearchQuery} />
 
       <div>
-        <h2 className="text-xl font-semibold mb-4">Assigned Guides</h2>
+        <h2 className="text-xl font-semibold mb-4 text-white">Assigned Guides</h2>
         {guidesWithProgress.length === 0 ? (
           <div className="text-center py-12 text-gray-500">
             <p>No guides found</p>
@@ -76,7 +76,7 @@ export default function EmployeeDashboard() {
 
       {staffQuestions.length > 0 && (
         <div>
-          <h2 className="text-xl font-semibold mb-4">My Questions</h2>
+          <h2 className="text-xl font-semibold mb-4 text-white">My Questions</h2>
           <QuestionsList questions={staffQuestions} />
         </div>
       )}

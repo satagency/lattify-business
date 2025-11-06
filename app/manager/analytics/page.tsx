@@ -1,8 +1,10 @@
 // app/manager/analytics/page.tsx
 
 import { AnalyticsCharts } from '@/components/manager/AnalyticsCharts';
+import { StepAnalytics } from '@/components/manager/StepAnalytics';
 import { MetricsCard } from '@/components/manager/MetricsCard';
 import { mockAnalytics } from '@/lib/data/mockAnalytics';
+import { mockStepProblems } from '@/lib/data/mockStepProblems';
 
 export default function AnalyticsPage() {
   return (
@@ -31,6 +33,10 @@ export default function AnalyticsPage() {
           title="Pending Proofs"
           value={mockAnalytics.pendingProofs}
         />
+      </div>
+
+      <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <StepAnalytics problems={mockStepProblems} />
       </div>
 
       <div className="bg-white border border-gray-200 rounded-lg p-6">

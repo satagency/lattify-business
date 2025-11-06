@@ -31,28 +31,28 @@ export function GuideCard({ guide, progress, onClick }: GuideCardProps) {
   const cardContent = (
     <div
       className={cn(
-        'bg-white border border-gray-200 rounded-lg overflow-hidden transition-all hover:shadow-medium cursor-pointer',
-        isComplete && 'border-black'
+        'bg-gray-900 border border-gray-800 rounded-lg overflow-hidden transition-all hover:border-gray-700 cursor-pointer',
+        isComplete && 'border-white'
       )}
       onClick={handleClick}
     >
-      <div className="relative aspect-video bg-gray-200 flex items-center justify-center">
+      <div className="relative aspect-video bg-gray-800 flex items-center justify-center">
         {/* Placeholder gray div - no images without database */}
-        <div className="w-full h-full bg-gray-200" />
+        <div className="w-full h-full bg-gray-800" />
         {isComplete && (
-          <div className="absolute top-2 right-2 bg-black text-white p-1.5 rounded-full">
+          <div className="absolute top-2 right-2 bg-white text-black p-1.5 rounded-full">
             <Check className="h-4 w-4" />
           </div>
         )}
         <div className="absolute bottom-2 left-2">
-          <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium">
+          <span className="bg-black/80 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-white">
             {getCategoryLabel(guide.category)}
           </span>
         </div>
       </div>
       <div className="p-4">
-        <h3 className="font-semibold text-lg mb-2 line-clamp-2">{guide.title}</h3>
-        <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+        <h3 className="font-semibold text-lg mb-2 line-clamp-2 text-white">{guide.title}</h3>
+        <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
           <div className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
             <span>{guide.estimatedTime} min</span>

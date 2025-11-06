@@ -20,8 +20,8 @@ export function QuestionsList({ questions, onQuestionClick }: QuestionsListProps
 
   if (questions.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500">
-        <MessageSquare className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+            <div className="text-center py-12 text-gray-500">
+        <MessageSquare className="h-12 w-12 mx-auto mb-4 text-gray-700" />
         <p>No questions yet</p>
       </div>
     );
@@ -31,8 +31,8 @@ export function QuestionsList({ questions, onQuestionClick }: QuestionsListProps
     <div className="space-y-4">
       {openQuestions.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-            <span className="bg-black text-white px-2 py-0.5 rounded text-xs">
+            <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+            <span className="bg-white text-black px-2 py-0.5 rounded text-xs">
               {openQuestions.length}
             </span>
             Open Questions
@@ -51,7 +51,7 @@ export function QuestionsList({ questions, onQuestionClick }: QuestionsListProps
 
       {resolvedQuestions.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
             <Check className="h-4 w-4" />
             Resolved ({resolvedQuestions.length})
           </h3>
@@ -84,29 +84,29 @@ function QuestionItem({
       className={cn(
         'p-4 border rounded-lg transition-colors',
         isResolved
-          ? 'border-gray-200 bg-gray-50'
-          : 'border-black bg-white hover:bg-gray-50 cursor-pointer'
+          ? 'border-gray-800 bg-gray-900'
+          : 'border-white bg-gray-900 hover:bg-gray-800 cursor-pointer'
       )}
       onClick={() => onClick?.(question.id)}
     >
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
-          <p className="font-medium text-sm mb-1">{question.question}</p>
-          <div className="text-xs text-gray-500 space-y-1">
+          <p className="font-medium text-sm mb-1 text-white">{question.question}</p>
+          <div className="text-xs text-gray-400 space-y-1">
             <p>
               Guide step {question.stepNumber} • {question.staffName}
             </p>
             <p>{formatDateTime(question.createdAt)}</p>
           </div>
           {isResolved && question.answer && (
-            <div className="mt-3 pt-3 border-t border-gray-200">
-              <p className="text-xs font-medium text-gray-700 mb-1">Answer:</p>
-              <p className="text-sm text-gray-600">{question.answer}</p>
+            <div className="mt-3 pt-3 border-t border-gray-800">
+              <p className="text-xs font-medium text-gray-400 mb-1">Answer:</p>
+              <p className="text-sm text-gray-300">{question.answer}</p>
             </div>
           )}
         </div>
         {isResolved && (
-          <Check className="h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5" />
+          <Check className="h-5 w-5 text-gray-600 flex-shrink-0 mt-0.5" />
         )}
       </div>
     </div>

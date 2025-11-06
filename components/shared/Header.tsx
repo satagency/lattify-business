@@ -21,7 +21,7 @@ export function Header({ title, showMenu = false, onMenuToggle, isMenuOpen }: He
   const isManager = pathname?.startsWith('/manager');
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-sm border-b border-gray-800">
       <div className="flex items-center justify-between px-4 py-3 md:px-6">
         <div className="flex items-center gap-4">
           {showMenu && (
@@ -31,36 +31,36 @@ export function Header({ title, showMenu = false, onMenuToggle, isMenuOpen }: He
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-6 w-6 text-white" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-6 w-6 text-white" />
               )}
             </button>
           )}
           <Link href={isEmployee ? '/employee' : isManager ? '/manager' : '/'}>
-            <h1 className="text-xl font-bold">{title}</h1>
+            <h1 className="text-xl font-bold text-white">{title}</h1>
           </Link>
         </div>
         <nav className="hidden md:flex items-center gap-4">
           {isEmployee && (
             <>
-              <Link href="/employee" className="text-sm hover:underline">
+              <Link href="/employee" className="text-sm hover:underline text-gray-300">
                 My Training
               </Link>
             </>
           )}
           {isManager && (
             <>
-              <Link href="/manager" className="text-sm hover:underline">
+              <Link href="/manager" className="text-sm hover:underline text-gray-300">
                 Dashboard
               </Link>
-              <Link href="/manager/library" className="text-sm hover:underline">
+              <Link href="/manager/library" className="text-sm hover:underline text-gray-300">
                 Library
               </Link>
-              <Link href="/manager/staff" className="text-sm hover:underline">
+              <Link href="/manager/staff" className="text-sm hover:underline text-gray-300">
                 Staff
               </Link>
-              <Link href="/manager/questions" className="text-sm hover:underline">
+              <Link href="/manager/questions" className="text-sm hover:underline text-gray-300">
                 Questions
               </Link>
             </>

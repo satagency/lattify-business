@@ -4,13 +4,14 @@
 
 import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Check, MessageSquare } from 'lucide-react';
+import { ArrowLeft, Check, MessageSquare, X, RotateCcw, Sparkles } from 'lucide-react';
 import { Button } from '@/components/shared/Button';
 import { ProgressBar } from '@/components/employee/ProgressBar';
 import { Modal } from '@/components/shared/Modal';
 import { getGuideById } from '@/lib/data/mockGuides';
 import { getProgressByStaffAndGuide } from '@/lib/data/mockProgress';
 import { getCategoryLabel } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 // Mock current staff ID - in production, this would come from auth
 const CURRENT_STAFF_ID = 'staff-001';
@@ -28,8 +29,8 @@ export default function GuideDetailPage() {
 
   if (!guide) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-500">Guide not found</p>
+      <div className="text-center py-12 text-gray-400">
+        <p>Guide not found</p>
         <Button onClick={() => router.push('/employee')} className="mt-4">
           Back to Dashboard
         </Button>
@@ -41,11 +42,11 @@ export default function GuideDetailPage() {
   const totalSteps = guide.totalSteps;
   const isComplete = completedSteps === totalSteps;
 
-  // Mock step data
+  // Mock step data - matching consumer platform style
   const steps = Array.from({ length: totalSteps }, (_, i) => ({
     number: i + 1,
-    title: `Step ${i + 1}: ${guide.title} - Part ${i + 1}`,
-    description: `This is step ${i + 1} of ${guide.title}. Follow the instructions carefully to complete this step.`,
+    title: `Step ${i + 1}: ${guide.title}`,
+    instruction: `This is step ${i + 1} of ${guide.title}. Follow the instructions carefully to complete this step.`,
   }));
 
   const handleStepComplete = (stepNumber: number) => {
@@ -62,130 +63,125 @@ export default function GuideDetailPage() {
     setIsQuestionModalOpen(false);
   };
 
+  const currentStepData = steps[currentStep - 1];
+
   return (
-    <div className="space-y-6">
-      <button
-        onClick={() => router.back()}
-        className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
-      >
-        <ArrowLeft className="h-5 w-5" />
-        <span>Back</span>
-      </button>
-
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-        <div className="relative aspect-video bg-gray-200 flex items-center justify-center">
-          {/* Placeholder gray div - no images without database */}
-          <div className="w-full h-full bg-gray-200" />
-          <div className="absolute top-4 left-4">
-            <span className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded text-sm font-medium">
-              {getCategoryLabel(guide.category)}
-            </span>
-          </div>
-        </div>
-        <div className="p-6">
-          <h1 className="text-3xl font-bold mb-2">{guide.title}</h1>
-          <div className="flex items-center gap-4 text-gray-600 mb-4">
-            <span>{guide.totalSteps} steps</span>
-            <span>•</span>
-            <span>{guide.estimatedTime} minutes</span>
-          </div>
-          <ProgressBar
-            completed={completedSteps}
-            total={totalSteps}
-            showCheckmark={isComplete}
-          />
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Steps</h2>
-          <Button
-            variant="outline"
-            onClick={() => setIsQuestionModalOpen(true)}
+    <div className="min-h-screen bg-black text-white">
+      {/* Header with close button */}
+      <div className="sticky top-0 z-50 bg-black/80 backdrop-blur-sm border-b border-gray-800">
+        <div className="flex items-center justify-between p-4">
+          <button
+            onClick={() => router.back()}
+            className="p-2 hover:bg-gray-900 rounded-lg transition-colors"
           >
-            <MessageSquare className="h-4 w-4 mr-2" />
-            Ask Question
-          </Button>
-        </div>
-
-        {/* Step-by-step view - future: will show videos/steps like Craft Reels Mode */}
-        <div className="space-y-4">
-          {steps.map((step, index) => {
-            const isCompleted = index + 1 <= completedSteps;
-            const isCurrent = index + 1 === currentStep;
-
-            return (
-              <div
-                key={step.number}
-                className={`
-                  border rounded-lg overflow-hidden transition-all
-                  ${isCurrent ? 'border-black bg-gray-50 shadow-medium' : 'border-gray-200 bg-white'}
-                  ${isCompleted ? 'opacity-75' : ''}
-                `}
-              >
-                {/* Video/Visual Area - Future: full-screen video like Craft Reels Mode */}
-                <div className="relative aspect-video bg-gray-200 flex items-center justify-center">
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-black/80 text-white px-3 py-1.5 rounded text-sm font-medium">
-                      Step {step.number} of {totalSteps}
-                    </span>
-                  </div>
-                  <div className="text-center text-gray-500">
-                    <p className="text-sm">Video/Visual will appear here</p>
-                    <p className="text-xs mt-1">Full-screen Craft Reels Mode</p>
-                  </div>
-                </div>
-                
-                {/* Step Instructions */}
-                <div className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div
-                      className={`
-                        flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold
-                        ${isCompleted ? 'bg-black text-white' : 'bg-gray-200 text-gray-600'}
-                      `}
-                    >
-                      {isCompleted ? (
-                        <Check className="h-5 w-5" />
-                      ) : (
-                        step.number
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
-                      <p className="text-gray-600 mb-4">{step.description}</p>
-                      
-                      {/* Future: Bottom action bar will go here (Help, Tip, Report Issue, Timer) */}
-                      {isCurrent && !isCompleted && (
-                        <div className="flex items-center gap-2">
-                          <Button onClick={() => handleStepComplete(step.number)}>
-                            Mark Step Complete
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setIsQuestionModalOpen(true)}
-                          >
-                            <MessageSquare className="h-4 w-4 mr-2" />
-                            Get Help
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+            <ArrowLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={() => router.push('/employee')}
+            className="p-2 hover:bg-gray-900 rounded-lg transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
       </div>
 
+      {/* Video/Image Area - matching consumer platform */}
+      <div className="relative aspect-video bg-gray-900">
+        {/* Video placeholder - will show actual video */}
+        <div className="w-full h-full flex items-center justify-center bg-gray-900">
+          <div className="text-center text-gray-500">
+            <p className="text-sm">Video will appear here</p>
+            <p className="text-xs mt-1">Full-screen Craft Reels Mode</p>
+          </div>
+        </div>
+        {/* Video controls overlay - matching consumer platform */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="flex items-center gap-4 pointer-events-auto">
+            <button className="bg-black/60 backdrop-blur-sm rounded-full p-3 text-white hover:bg-black/80">
+              <RotateCcw className="h-5 w-5" />
+            </button>
+            <button className="bg-black/60 backdrop-blur-sm rounded-full p-4 text-white hover:bg-black/80">
+              <div className="w-6 h-6 border-2 border-white"></div>
+            </button>
+            <button className="bg-black/60 backdrop-blur-sm rounded-full p-3 text-white hover:bg-black/80">
+              <RotateCcw className="h-5 w-5 rotate-180" />
+            </button>
+          </div>
+        </div>
+        {/* Step indicator overlay */}
+        <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded text-sm font-medium">
+          Step {currentStep} of {totalSteps}
+        </div>
+      </div>
+
+      {/* Step Title */}
+      <div className="px-4 py-6">
+        <h1 className="text-2xl font-bold text-white mb-4">{currentStepData.title}</h1>
+      </div>
+
+      {/* Instructions - matching consumer platform style (light gray cards) */}
+      <div className="px-4 space-y-3 pb-24">
+        <div className="bg-gray-700 text-gray-100 rounded-lg p-4">
+          <p>{currentStepData.instruction}</p>
+        </div>
+        
+        {/* Show all steps as instruction cards */}
+        {steps.map((step, index) => {
+          const isCompleted = index + 1 <= completedSteps;
+          const isCurrent = index + 1 === currentStep;
+          
+          if (index + 1 === currentStep) {
+            return null; // Current step instruction shown above
+          }
+          
+          return (
+            <div
+              key={step.number}
+              className={cn(
+                'bg-gray-700 text-gray-100 rounded-lg p-4',
+                isCompleted && 'opacity-60'
+              )}
+            >
+              <p>{step.instruction}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Bottom Action Bar - matching consumer platform */}
+      <div className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 p-4">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+            className="flex-1 bg-gray-700 text-gray-100 rounded-lg px-4 py-3 flex items-center justify-center gap-2 hover:bg-gray-600 transition-colors"
+          >
+            <RotateCcw className="h-4 w-4" />
+            <span className="text-sm font-medium">Repeat</span>
+          </button>
+          <button
+            onClick={() => setIsQuestionModalOpen(true)}
+            className="flex-1 bg-gray-600 text-white rounded-lg px-4 py-3 flex items-center justify-center gap-2 hover:bg-gray-500 transition-colors"
+          >
+            <Sparkles className="h-4 w-4" />
+            <span className="text-sm font-medium">Get Help</span>
+          </button>
+          <button
+            onClick={() => handleStepComplete(currentStep)}
+            disabled={isComplete}
+            className="flex-1 bg-white text-black rounded-lg px-4 py-3 flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Check className="h-4 w-4" />
+            <span className="text-sm font-medium">Mark Complete</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Help Modal */}
       <Modal
         open={isQuestionModalOpen}
         onOpenChange={setIsQuestionModalOpen}
-        title="Ask a Question"
-        description="Have a question about this step? Ask your manager for help."
+        title="Ask for Help"
+        description={`Step ${currentStep}: ${currentStepData.title}`}
         footer={
           <div className="flex justify-end gap-2">
             <Button
@@ -200,15 +196,16 @@ export default function GuideDetailPage() {
           </div>
         }
       >
-        <textarea
-          value={questionText}
-          onChange={(e) => setQuestionText(e.target.value)}
-          placeholder="Type your question here..."
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black resize-none"
-          rows={4}
-        />
+        <div className="space-y-4">
+          <textarea
+            value={questionText}
+            onChange={(e) => setQuestionText(e.target.value)}
+            placeholder="Ask for help..."
+            className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white resize-none"
+            rows={4}
+          />
+        </div>
       </Modal>
     </div>
   );
 }
-

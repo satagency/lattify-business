@@ -6,14 +6,25 @@
   }
   
   body {
-    @apply bg-white text-black;
+    @apply bg-black text-white;
   }
 }
 
 @layer components {
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black;
+  }
+  
+  /* Dark mode cards for instructions */
+  .instruction-card {
+    @apply bg-gray-700 text-gray-100 rounded-lg p-4;
+  }
+  
+  /* Dark navigation bar */
+  .nav-bar {
+    @apply bg-gray-900 border-t border-gray-800;
   }
 }
+
 
 

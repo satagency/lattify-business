@@ -23,18 +23,18 @@ export function ProgressBar({
   return (
     <div className={cn('relative', className)}>
       <div className="flex items-center justify-between mb-1">
-        <span className="text-sm font-medium text-gray-700">
+        <span className="text-sm font-medium text-gray-300">
           {completed} of {total} steps
         </span>
         {showCheckmark && isComplete && (
-          <Check className="h-5 w-5 text-black" aria-hidden="true" />
+          <Check className="h-5 w-5 text-gray-300" aria-hidden="true" />
         )}
       </div>
-      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+      <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
         <div
           className={cn(
             'h-full transition-all duration-300',
-            isComplete ? 'bg-black' : 'bg-gray-600'
+            isComplete ? 'bg-white' : 'bg-gray-600'
           )}
           style={{ width: `${percentage}%` }}
           role="progressbar"

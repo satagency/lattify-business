@@ -13,7 +13,7 @@ export default function EmployeeLayout({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black">
       <Header
         title="Lattify Training"
         showMenu={false}
