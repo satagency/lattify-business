@@ -199,50 +199,6 @@ export default function ManagerDashboard() {
           <RankingsCard rankings={mockRankings} />
         </div>
       </div>
-
-      {/* Quick Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Link href="/manager/staff" className="block">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-black hover:shadow-sm transition-all">
-            <div className="flex items-center justify-between mb-2">
-              <Users className="h-5 w-5 text-gray-600" />
-              <span className="text-xs text-gray-500">Active</span>
-            </div>
-            <p className="text-3xl font-light tracking-tight text-black mb-1">{activeStaff}</p>
-            <p className="text-sm text-gray-600">Staff Members</p>
-          </div>
-        </Link>
-        <Link href="/manager/library" className="block">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-black hover:shadow-sm transition-all">
-            <div className="flex items-center justify-between mb-2">
-              <BookOpen className="h-5 w-5 text-gray-600" />
-              <span className="text-xs text-gray-500">Total</span>
-            </div>
-            <p className="text-3xl font-light tracking-tight text-black mb-1">{mockAnalytics.totalGuides}</p>
-            <p className="text-sm text-gray-600">Training Guides</p>
-          </div>
-        </Link>
-        <Link href="/manager/questions" className="block">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-black hover:shadow-sm transition-all">
-            <div className="flex items-center justify-between mb-2">
-              <MessageSquare className="h-5 w-5 text-gray-600" />
-              <span className="text-xs text-gray-500">Awaiting</span>
-            </div>
-            <p className="text-3xl font-light tracking-tight text-black mb-1">{openQuestions.length}</p>
-            <p className="text-sm text-gray-600">Open Questions</p>
-          </div>
-        </Link>
-        <Link href="/manager/photos" className="block">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-black hover:shadow-sm transition-all">
-            <div className="flex items-center justify-between mb-2">
-              <Award className="h-5 w-5 text-gray-600" />
-              <span className="text-xs text-gray-500">Pending</span>
-            </div>
-            <p className="text-3xl font-light tracking-tight text-black mb-1">{pendingProofs}</p>
-            <p className="text-sm text-gray-600">Photo Proofs</p>
-          </div>
-        </Link>
-      </div>
     </div>
   );
 }
