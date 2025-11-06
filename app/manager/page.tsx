@@ -18,6 +18,7 @@ import { getOpenQuestions } from '@/lib/data/mockQuestions';
 import { mockProgress } from '@/lib/data/mockProgress';
 import { CheckCircle2, Clock, MessageSquare, Award, Users, BookOpen, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
+import { lastStepToDate } from '@/lib/utils';
 
 type DateRange = 'Last 7 days' | 'Last 30 days' | 'Last 90 days' | 'This month';
 
@@ -80,14 +81,14 @@ export default function ManagerDashboard() {
     // Completed items in date range
     const completedInRange = mockProgress.filter(p => {
       if (p.status !== 'complete') return false;
-      const pDate = p.lastStep instanceof Date ? p.lastStep : new Date(p.lastStep);
+      const pDate = lastStepToDate(p.lastStep);
       return pDate >= startDate && pDate <= today;
     }).length;
 
     // Completed items in comparison period
     const completedInComparison = mockProgress.filter(p => {
       if (p.status !== 'complete') return false;
-      const pDate = p.lastStep instanceof Date ? p.lastStep : new Date(p.lastStep);
+      const pDate = lastStepToDate(p.lastStep);
       return pDate >= comparisonStartDate && pDate <= comparisonEndDate;
     }).length;
 
@@ -102,7 +103,7 @@ export default function ManagerDashboard() {
 
     // Calculate completion rate
     const totalProgressInRange = mockProgress.filter(p => {
-      const pDate = p.lastStep instanceof Date ? p.lastStep : new Date(p.lastStep);
+      const pDate = lastStepToDate(p.lastStep);
       return pDate >= startDate && pDate <= today;
     }).length;
 
@@ -121,7 +122,7 @@ export default function ManagerDashboard() {
     const activeStaffInRange = new Set(
       mockProgress
         .filter(p => {
-          const pDate = p.lastStep instanceof Date ? p.lastStep : new Date(p.lastStep);
+          const pDate = lastStepToDate(p.lastStep);
           return pDate >= startDate && pDate <= today;
         })
         .map(p => p.staffId)
@@ -150,7 +151,7 @@ export default function ManagerDashboard() {
     const guidesUsed = new Set(
       mockProgress
         .filter(p => {
-          const pDate = p.lastStep instanceof Date ? p.lastStep : new Date(p.lastStep);
+          const pDate = lastStepToDate(p.lastStep);
           return pDate >= startDate && pDate <= today;
         })
         .map(p => p.guideId)
@@ -186,13 +187,13 @@ export default function ManagerDashboard() {
     
     const completedInRange = mockProgress.filter(p => {
       if (p.status !== 'complete') return false;
-      const pDate = p.lastStep instanceof Date ? p.lastStep : new Date(p.lastStep);
+      const pDate = lastStepToDate(p.lastStep);
       return pDate >= startDate && pDate <= today;
     }).length;
 
     const inProgressInRange = mockProgress.filter(p => {
       if (p.status !== 'in_progress') return false;
-      const pDate = p.lastStep instanceof Date ? p.lastStep : new Date(p.lastStep);
+      const pDate = lastStepToDate(p.lastStep);
       return pDate >= startDate && pDate <= today;
     }).length;
 

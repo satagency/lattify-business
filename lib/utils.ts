@@ -51,3 +51,14 @@ export function getStatusColor(status: string): string {
   return colors[status] || 'bg-gray-400';
 }
 
+// Helper function to safely convert lastStep (Date | number) to Date
+export function lastStepToDate(lastStep: Date | number): Date {
+  if (lastStep instanceof Date) {
+    return lastStep;
+  }
+  // If it's a number, treat it as days ago from today
+  const date = new Date();
+  date.setDate(date.getDate() - lastStep);
+  return date;
+}
+
