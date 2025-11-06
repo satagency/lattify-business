@@ -53,3 +53,44 @@ export interface Analytics {
   completionRate: number;
 }
 
+export interface HotelInfo {
+  id: string;
+  name: string;
+  location: string;
+  propertyType: string;
+  starRating: number;
+  totalRooms: number;
+  brand?: string;
+}
+
+export interface ManagerInfo {
+  name: string;
+  position: string;
+  department: string;
+  email: string;
+  phone?: string;
+}
+
+export interface HotelGoal {
+  id: string;
+  title: string;
+  target: number;
+  current: number;
+  unit: string;
+  category: 'training' | 'performance' | 'engagement' | 'quality';
+  deadline?: Date;
+}
+
+export interface Ranking {
+  metric: string;
+  rank: number;
+  totalCompetitors: number;
+  percentile: number; // 0-100
+  comparison: 'above' | 'below' | 'average';
+  sisterProperties?: Array<{
+    name: string;
+    value: number;
+    rank: number;
+  }>;
+}
+

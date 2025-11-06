@@ -8,6 +8,7 @@ import { ArrowUpDown, Check, Clock } from 'lucide-react';
 import { StaffMember } from '@/lib/types';
 import { formatDate, getStatusColor } from '@/lib/utils';
 import { cn } from '@/lib/utils';
+import { StaffProfilePopover } from './StaffProfilePopover';
 
 interface StaffTableProps {
   staff: StaffMember[];
@@ -132,54 +133,54 @@ export function StaffTable({ staff, onStaffClick }: StaffTableProps) {
                 ? Math.round((member.completedGuides.length / member.assignedGuides.length) * 100)
                 : 0;
 
-              const rowContent = (
-                <tr
-                  key={member.id}
-                  className={cn(
-                    'border-b border-gray-100 hover:bg-gray-50 transition-colors',
-                    onStaffClick && 'cursor-pointer'
-                  )}
-                  onClick={() => onStaffClick?.(member.id)}
-                >
-                  <td className="py-5 px-6">
-                    <span className="font-medium text-sm">{member.name}</span>
-                  </td>
-                  <td className="py-5 px-6">
-                    <span className="text-sm text-gray-600">{member.role}</span>
-                  </td>
-                  <td className="py-5 px-6">
-                    <span
-                      className={cn(
-                        'inline-flex items-center px-3 py-1 rounded text-xs font-medium tracking-wide',
-                        getStatusColor(member.status),
-                        member.status === 'active' || member.status === 'complete' || member.status === 'open'
-                          ? 'text-white'
-                          : 'text-black'
-                      )}
-                    >
-                      {member.status}
-                    </span>
-                  </td>
-                  <td className="py-5 px-6">
-                    <div className="flex items-center gap-3">
-                      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-black transition-all"
-                          style={{ width: `${completionRate}%` }}
-                        />
-                      </div>
-                      <span className="text-xs text-gray-600 whitespace-nowrap font-medium">
-                        {member.completedGuides.length}/{member.assignedGuides.length}
+              return (
+                <StaffProfilePopover key={member.id} staff={member}>
+                  <tr
+                    className={cn(
+                      'border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer'
+                    )}
+                    onClick={() => {
+                      onStaffClick?.(member.id);
+                    }}
+                  >
+                    <td className="py-5 px-6">
+                      <span className="font-medium text-sm">{member.name}</span>
+                    </td>
+                    <td className="py-5 px-6">
+                      <span className="text-sm text-gray-600">{member.role}</span>
+                    </td>
+                    <td className="py-5 px-6">
+                      <span
+                        className={cn(
+                          'inline-flex items-center px-3 py-1 rounded text-xs font-medium tracking-wide',
+                          getStatusColor(member.status),
+                          member.status === 'active' || member.status === 'complete'
+                            ? 'text-white'
+                            : 'text-black'
+                        )}
+                      >
+                        {member.status}
                       </span>
-                    </div>
-                  </td>
-                  <td className="py-5 px-6">
-                    <span className="text-sm text-gray-600">{formatDate(member.lastActivity)}</span>
-                  </td>
-                </tr>
+                    </td>
+                    <td className="py-5 px-6">
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-black transition-all"
+                            style={{ width: `${completionRate}%` }}
+                          />
+                        </div>
+                        <span className="text-xs text-gray-600 whitespace-nowrap font-medium">
+                          {member.completedGuides.length}/{member.assignedGuides.length}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="py-5 px-6">
+                      <span className="text-sm text-gray-600">{formatDate(member.lastActivity)}</span>
+                    </td>
+                  </tr>
+                </StaffProfilePopover>
               );
-
-              return rowContent;
             })}
           </tbody>
         </table>
