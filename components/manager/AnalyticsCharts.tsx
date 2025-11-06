@@ -9,19 +9,24 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
 } from 'recharts';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from '@/components/ui/chart';
 import { Analytics } from '@/lib/types';
 
 interface AnalyticsChartsProps {
   analytics: Analytics;
 }
 
-const COLORS = ['#000000', '#404040', '#737373', '#A3A3A3'];
+const chartConfig = {
+  views: {
+    label: 'Views',
+    color: 'hsl(0, 0%, 0%)',
+  },
+  count: {
+    label: 'Requests',
+    color: 'hsl(0, 0%, 0%)',
+  },
+} satisfies ChartConfig;
 
 export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
   const mostViewedData = analytics.mostViewedGuides.map((item) => ({
@@ -35,43 +40,71 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
   }));
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h3 className="text-lg font-semibold mb-4">Most Viewed Guides</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={mostViewedData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E8" />
-            <XAxis dataKey="name" stroke="#737373" />
-            <YAxis stroke="#737373" />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E8E8E8',
-                borderRadius: '8px',
-              }}
+        <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Most Viewed Guides</h3>
+        <ChartContainer config={chartConfig} className="min-h-[320px] w-full">
+          <BarChart accessibilityLayer data={mostViewedData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+            <CartesianGrid vertical={false} strokeDasharray="3 3" />
+            <XAxis 
+              dataKey="name" 
+              tickLine={false}
+              axisLine={false}
+              tickMargin={10}
+              angle={-45}
+              textAnchor="end"
+              height={80}
+              tick={{ fontSize: 12 }}
             />
-            <Bar dataKey="views" fill="#000000" radius={[8, 8, 0, 0]} />
+            <YAxis 
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tick={{ fontSize: 12 }}
+            />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Bar 
+              dataKey="views" 
+              fill="var(--color-views)" 
+              radius={[4, 4, 0, 0]}
+            />
           </BarChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold mb-4">Help Requests by Step</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={helpRequestsData} layout="vertical">
-            <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E8" />
-            <XAxis type="number" stroke="#737373" />
-            <YAxis dataKey="name" type="category" stroke="#737373" width={200} />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E8E8E8',
-                borderRadius: '8px',
-              }}
+        <h3 className="text-xs font-medium uppercase tracking-wide text-gray-500 mb-6">Help Requests by Step</h3>
+        <ChartContainer config={chartConfig} className="min-h-[320px] w-full">
+          <BarChart 
+            accessibilityLayer 
+            data={helpRequestsData} 
+            layout="vertical"
+            margin={{ top: 20, right: 30, left: 150, bottom: 20 }}
+          >
+            <CartesianGrid horizontal={true} vertical={false} strokeDasharray="3 3" />
+            <XAxis 
+              type="number" 
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tick={{ fontSize: 12 }}
             />
-            <Bar dataKey="count" fill="#000000" radius={[0, 8, 8, 0]} />
+            <YAxis 
+              dataKey="name" 
+              type="category" 
+              tickLine={false}
+              axisLine={false}
+              width={140}
+              tick={{ fontSize: 12 }}
+            />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Bar 
+              dataKey="count" 
+              fill="var(--color-count)" 
+              radius={[0, 4, 4, 0]}
+            />
           </BarChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </div>
     </div>
   );
