@@ -5,7 +5,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, BookOpen, Users, MessageSquare, BarChart3, X } from 'lucide-react';
+import { LayoutDashboard, BookOpen, Users, MessageSquare, BarChart3, Camera, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface SidebarProps {
@@ -22,6 +22,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     { href: '/manager/library', label: 'Library', icon: BookOpen },
     { href: '/manager/staff', label: 'Staff', icon: Users },
     { href: '/manager/questions', label: 'Questions', icon: MessageSquare },
+    { href: '/manager/photos', label: 'Photos', icon: Camera },
     { href: '/manager/analytics', label: 'Analytics', icon: BarChart3 },
   ];
 
