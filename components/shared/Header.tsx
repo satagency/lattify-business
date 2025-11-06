@@ -21,7 +21,10 @@ export function Header({ title, showMenu = false, onMenuToggle, isMenuOpen }: He
   const isManager = pathname?.startsWith('/manager');
 
   return (
-    <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-sm border-b border-gray-800">
+    <header className={cn(
+      "sticky top-0 z-50 border-b backdrop-blur-sm",
+      isEmployee ? "bg-black/80 border-gray-800" : "bg-white border-gray-200"
+    )}>
       <div className="flex items-center justify-between px-4 py-3 md:px-6">
         <div className="flex items-center gap-4">
           {showMenu && (
@@ -31,14 +34,14 @@ export function Header({ title, showMenu = false, onMenuToggle, isMenuOpen }: He
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
-                <X className="h-6 w-6 text-white" />
+                <X className={cn("h-6 w-6", isEmployee ? "text-white" : "text-black")} />
               ) : (
-                <Menu className="h-6 w-6 text-white" />
+                <Menu className={cn("h-6 w-6", isEmployee ? "text-white" : "text-black")} />
               )}
             </button>
           )}
           <Link href={isEmployee ? '/employee' : isManager ? '/manager' : '/'}>
-            <h1 className="text-xl font-bold text-white">{title}</h1>
+            <h1 className={cn("text-xl font-bold", isEmployee ? "text-white" : "text-black")}>{title}</h1>
           </Link>
         </div>
         <nav className="hidden md:flex items-center gap-4">
@@ -51,16 +54,16 @@ export function Header({ title, showMenu = false, onMenuToggle, isMenuOpen }: He
           )}
           {isManager && (
             <>
-              <Link href="/manager" className="text-sm hover:underline text-gray-300">
+              <Link href="/manager" className="text-sm hover:underline text-gray-700">
                 Dashboard
               </Link>
-              <Link href="/manager/library" className="text-sm hover:underline text-gray-300">
+              <Link href="/manager/library" className="text-sm hover:underline text-gray-700">
                 Library
               </Link>
-              <Link href="/manager/staff" className="text-sm hover:underline text-gray-300">
+              <Link href="/manager/staff" className="text-sm hover:underline text-gray-700">
                 Staff
               </Link>
-              <Link href="/manager/questions" className="text-sm hover:underline text-gray-300">
+              <Link href="/manager/questions" className="text-sm hover:underline text-gray-700">
                 Questions
               </Link>
             </>

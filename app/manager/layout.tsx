@@ -14,7 +14,7 @@ export default function ManagerLayout({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Header
         title="Manager Dashboard"
         showMenu={true}
@@ -23,7 +23,7 @@ export default function ManagerLayout({
       />
       <div className="flex">
         <Sidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-        <main className="flex-1 p-6 lg:p-8">
+        <main className="flex-1 p-6 lg:p-8 bg-gray-50">
           {children}
         </main>
       </div>
