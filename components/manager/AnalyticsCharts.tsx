@@ -67,8 +67,9 @@ export function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
     return Array.from(guideCompletionMap.entries())
       .map(([guideId, data]) => {
         const guide = mockGuides.find(g => g.id === guideId);
+        const title = guide?.title || guideId;
         return {
-          guide: guide?.title.length > 15 ? guide.title.substring(0, 15) + '...' : guide?.title || guideId,
+          guide: title.length > 15 ? title.substring(0, 15) + '...' : title,
           rate: Math.round((data.completed / data.total) * 100),
         };
       })
