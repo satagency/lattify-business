@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option D: The Basecamp Approach - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #000;
+            line-height: 1.7;
+        }
+        
+        .wireframe {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .section {
+            padding: 80px 60px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .logo {
+            width: 140px;
+            height: 40px;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 40px;
+            font-size: 15px;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            border: 2px solid #333;
+            background: #333;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #333;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 30px;
+        }
+        
+        /* Typography - conversational */
+        h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            font-size: 36px;
+            line-height: 1.3;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        h3 {
+            font-size: 24px;
+            line-height: 1.4;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        p {
+            font-size: 19px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        /* Simple video placeholder */
+        .video-box {
+            width: 100%;
+            height: 400px;
+            background: #e8e8e8;
+            border: 3px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        /* Testimonials */
+        .testimonial {
+            border-left: 4px solid #333;
+            padding-left: 30px;
+            margin: 40px 0;
+        }
+        
+        .testimonial p {
+            font-size: 20px;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .testimonial-author {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        /* Simple feature list */
+        .feature-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .feature-list li {
+            font-size: 18px;
+            line-height: 1.8;
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Pricing - simplified */
+        .pricing-simple {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .pricing-simple-card {
+            border: 2px solid #333;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .pricing-simple-card h3 {
+            margin-bottom: 12px;
+        }
+        
+        .pricing-simple-card .price {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 16px 0;
+        }
+        
+        .pricing-simple-card p {
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 60px 60px 40px;
+        }
+        
+        .footer-simple {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .footer-simple p {
+            color: #999;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-email {
+            font-size: 16px;
+            color: white;
+            margin-top: 30px;
+        }
+        
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe">
+        
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="logo">LATTIFY</div>
+            <div class="nav-items">
+                <span>How It Works</span>
+                <span>Testimonials</span>
+                <span>Pricing</span>
+            </div>
+            <button class="btn">Try It Free</button>
+        </nav>
+        
+        <!-- Hero -->
+        <section class="section">
+            <div class="container">
+                <h1>You've tried paper training manuals, YouTube tutorials, and shadowing your best staff for hours. Yet, here you are.</h1>
+                
+                <p>There's a reason. Most training systems are either too complicated, too generic, or just don't work when your expert isn't available. You know?</p>
+                
+                <p>Not Lattify.</p>
+                
+                <p>Lattify is refreshingly straightforward. Film your expert once on your phone. Staff train on their phones, in their language, with instant help when they get stuck. Training gets better automatically based on real feedback. No complexity, no hassle.</p>
+                
+                <p>Set up in 10 minutes. Works for restaurants, bars, cafes, hotels—anywhere you need to train people on hands-on tasks.</p>
+                
+                <p>So, we invite you to watch the video below and try Lattify for free. We'd be honored to have you as a customer. Thank you.</p>
+                
+                <p style="margin-top: 30px; font-size: 17px; color: #666;">— Eamonn McCarthy<br><a href="mailto:eamonn@lattify.co" style="color: #333;">eamonn@lattify.co</a><br>Co-founder</p>
+                
+                <div class="video-box">
+                    <span style="font-size: 16px; font-weight: 600; color: #666;">EXPLAINER VIDEO (2 MINUTES)</span>
+                </div>
+                
+                <div class="cta-group">
+                    <button class="btn">Try Free for 30 Days</button>
+                    <button class="btn btn-secondary">See Live Demo</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- The Problem (Empathy) -->
+        <section class="section" style="background: #fafafa;">
+            <div class="container">
+                <h2>Here's what we keep hearing:</h2>
+                
+                <p>"My head chef trains the same carbonara recipe 50 times a year. It takes 2 hours every time. The 50th time looks nothing like the first time."</p>
+                
+                <p>"Half my staff speak Spanish. I need them trained yesterday, but everything's in English and my manager doesn't have time to translate."</p>
+                
+                <p>"I have paper binders from 2019. Nobody reads them. The procedures have changed but the binders haven't."</p>
+                
+                <p>"Training is just shadowing. It works if my best bartender is available. She's not available. So training... doesn't work."</p>
+                
+                <p style="margin-top: 40px; font-weight: 600; font-size: 22px;">Sound familiar?</p>
+                
+                <p>The hospitality industry has a training problem. Big hotel groups spend millions on training platforms. Independent venues have paper and hope. This isn't fair. And it's not necessary.</p>
+            </div>
+        </section>
+        
+        <!-- What It Is -->
+        <section class="section">
+            <div class="container">
+                <h2>What Lattify actually is</h2>
+                
+                <p>Think of it this way: You have an expert. They know how to make your signature dish, craft your signature cocktail, or execute your check-in process perfectly.</p>
+                
+                <p>Film them doing it once. Ten minutes on the phone you use for Instagram.</p>
+                
+                <p>Lattify turns that video into a step-by-step training guide. Automatically. Your staff train on their phones—during downtime, between shifts, at home the night before they start. In Spanish. In Polish. In Romanian. In 20+ languages.</p>
+                
+                <p>When they get stuck on Step 3, they tap "Get help." AI answers in 15 seconds. Context-aware. Knows exactly what step they're on, what they're struggling with.</p>
+                
+                <p>Here's the part that makes it different: Training improves. Maria flags Step 4: "measurement unclear." Three other staff report the same issue. You see this in your dashboard. You fix it in 2 minutes. Next staff member gets the improved version.</p>
+                
+                <p>Your carbonara training is now 45% faster than when you started. Because it got better based on real feedback from real staff doing the real work.</p>
+                
+                <p><strong>That's Lattify.</strong></p>
+            </div>
+        </section>
+        
+        <!-- Testimonials -->
+        <section class="section" style="background: #fafafa;">
+            <div class="container">
+                <h2>What customers say</h2>
+                
+                <div class="testimonial">
+                    <p>"We went from paper training binders to a professional platform in one afternoon. Three months later, our training is 40% faster because we fixed all the problem steps based on staff feedback. My head chef isn't training the same thing 50 times anymore."</p>
+                    <div class="testimonial-author">— Marco Rossi, La Famiglia Italian Restaurant, London</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"Half our staff speak Spanish. Before Lattify, training meant my manager translating everything manually, taking twice as long. Now we film once in English, it's available in Spanish automatically. Training happens 60% faster."</p>
+                    <div class="testimonial-author">— Sarah Chen, The Corner Bistro, Manchester</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"I manage 5 hotel locations. When we need to update a procedure, it used to take weeks to retrain everyone. Now I update the guide once, all 42 front desk staff get notified, complete the 2-minute update, and we're done. Same day."</p>
+                    <div class="testimonial-author">— James Patterson, Regional Manager, Heritage Hotels</div>
+                </div>
+                
+                <p style="margin-top: 50px;"><a href="#testimonials" style="color: #333; text-decoration: underline;">Read 30+ more customer stories →</a></p>
+            </div>
+        </section>
+        
+        <!-- How It Works (Simple) -->
+        <section class="section">
+            <div class="container">
+                <h2>How it works</h2>
+                
+                <h3>1. Film your expert (10 minutes)</h3>
+                <p>Pull out your phone. Film your expert demonstrating the task. Same phone you use for Instagram. No production team, no fancy equipment, no scripts.</p>
+                
+                <h3 style="margin-top: 40px;">2. System creates the guide (10 minutes)</h3>
+                <p>Upload the video. AI watches it, identifies the steps, extracts materials and tools, generates safety warnings, creates a complete step-by-step guide. You review and refine. Total time: 10 minutes.</p>
+                
+                <h3 style="margin-top: 40px;">3. Staff train on their phones</h3>
+                <p>Assign the guide to new hires. They get a notification. They train during downtime—at home the night before, during a quiet afternoon, between shifts. Step-by-step. In their language. With instant AI help when stuck.</p>
+                
+                <h3 style="margin-top: 40px;">4. Training improves automatically</h3>
+                <p>Staff flag issues during training: "Step 4 unclear," "Missing ingredient," "Better way to do this." You see all feedback in one dashboard. Fix problems once. Every future staff member gets the improved version. Training gets 30-50% better over the first 3 months.</p>
+                
+                <p style="margin-top: 40px; font-weight: 600;">That's it. No complexity. No ongoing maintenance. Just better training that keeps getting better.</p>
+            </div>
+        </section>
+        
+        <!-- What's Included -->
+        <section class="section" style="background: #fafafa;">
+            <div class="container">
+                <h2>What's included</h2>
+                
+                <ul class="feature-list">
+                    <li><strong>Film on phone</strong> — 10-minute video. No production needed.</li>
+                    <li><strong>AI guide generation</strong> — Step-by-step guide created automatically.</li>
+                    <li><strong>20+ languages</strong> — Create once in English, available in Spanish, Polish, Romanian, etc.</li>
+                    <li><strong>Instant AI help</strong> — Staff get answers in 15 seconds when stuck.</li>
+                    <li><strong>Staff feedback system</strong> — Flag issues, add tips, suggest improvements.</li>
+                    <li><strong>Training analytics</strong> — See where staff struggle, track improvement.</li>
+                    <li><strong>Progress tracking</strong> — Know who completed what, when.</li>
+                    <li><strong>Photo verification</strong> — Staff upload photos of completed work.</li>
+                    <li><strong>Multi-location support</strong> — Manage training across multiple venues.</li>
+                    <li><strong>Always current</strong> — Update once, notify all staff instantly.</li>
+                </ul>
+                
+                <p style="margin-top: 40px;">Everything you need to replace paper manuals, YouTube searches, and shadowing with actual professional training infrastructure.</p>
+            </div>
+        </section>
+        
+        <!-- Pricing -->
+        <section class="section">
+            <div class="container">
+                <h2>Pricing</h2>
+                
+                <p>We keep it simple. Three tiers. Pick what fits.</p>
+                
+                <div class="pricing-simple">
+                    <div class="pricing-simple-card">
+                        <h3>Free</h3>
+                        <div class="price">£0</div>
+                        <p>1 guide, 5 staff<br>Try the system<br>No credit card needed</p>
+                        <button class="btn btn-secondary" style="width: 100%;">Start Free</button>
+                    </div>
+                    
+                    <div class="pricing-simple-card" style="border: 3px solid #333;">
+                        <h3>Starter</h3>
+                        <div class="price">£99</div>
+                        <p style="font-size: 14px; margin-bottom: 8px;">/month</p>
+                        <p>10 guides, 25 staff<br>Everything included<br>Single location</p>
+                        <button class="btn" style="width: 100%;">Try Free 30 Days</button>
+                    </div>
+                    
+                    <div class="pricing-simple-card">
+                        <h3>Pro</h3>
+                        <div class="price">£299</div>
+                        <p style="font-size: 14px; margin-bottom: 8px;">/month</p>
+                        <p>Unlimited guides, 100 staff<br>Advanced analytics<br>Multi-location</p>
+                        <button class="btn btn-secondary" style="width: 100%;">Try Free 30 Days</button>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; margin-top: 40px;"><strong>Enterprise?</strong> We've got you. Custom pricing, white-glove setup, dedicated support. <a href="mailto:sales@lattify.co" style="color: #333; text-decoration: underline;">Email us.</a></p>
+            </div>
+        </section>
+        
+        <!-- Final Pitch -->
+        <section class="section" style="background: #fafafa;">
+            <div class="container">
+                <h2>Try it. If it doesn't work for you, no hard feelings.</h2>
+                
+                <p>Here's the thing: We can tell you all day that Lattify is straightforward, that it works, that your training will improve.</p>
+                
+                <p>Or you can just try it.</p>
+                
+                <p>30 days free. No credit card. Film one guide. Train a few staff. See if it actually makes your life easier. If it does, great—stay. If it doesn't, no hard feelings.</p>
+                
+                <p>We built Lattify because we were frustrated with how hard it is to train people well in hospitality. Big chains have the infrastructure. Independent venues should too.</p>
+                
+                <p style="margin-top: 40px; font-weight: 600;">Thanks for reading. We hope you give it a shot.</p>
+                
+                <div class="cta-group" style="justify-content: center; margin-top: 40px;">
+                    <button class="btn">Try Free for 30 Days</button>
+                    <button class="btn btn-secondary">See Live Demo</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-simple">
+                <div class="logo" style="margin: 0 auto 30px; width: 140px; height: 40px;">LATTIFY</div>
+                <p>Training infrastructure for every hospitality business.</p>
+                
+                <div class="footer-links">
+                    <a href="#how">How It Works</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <div class="footer-email">
+                    Questions? Email us: <a href="mailto:hello@lattify.co" style="color: white; text-decoration: underline;">hello@lattify.co</a>
+                </div>
+                
+                <div class="footer-bottom">
+                    © 2025 Lattify. All rights reserved.
+                </div>
+            </div>
+        </footer>
+        
+    </div>
+    
+    <div style="background: #f0f0f0; padding: 40px; text-align: center; border-top: 3px solid #333;">
+        <h3 style="margin-bottom: 12px;">OPTION D: THE BASECAMP APPROACH</h3>
+        <p style="color: #666; max-width: 800px; margin: 0 auto;">Conversational, empathetic, honest. Acknowledges user frustration upfront ("You've tried X, Y, Z. Yet here you are."). Minimal design, maximum clarity. Personal touch with founder email. Straightforward language, no marketing speak. Extensive customer testimonials. Simple pricing. "Try it" attitude vs. "buy it" pressure. This Old House reliability meets Basecamp simplicity.</p>
+    </div>
+</body>
+</html>

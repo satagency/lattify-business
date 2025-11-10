@@ -4,13 +4,11 @@
 
 import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Check, MessageSquare, X, RotateCcw, Sparkles, Play, Pause } from 'lucide-react';
+import { ArrowLeft, Check, X, RotateCcw, Sparkles, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/shared/Button';
-import { ProgressBar } from '@/components/employee/ProgressBar';
-import { Modal } from '@/components/shared/Modal';
+import { HelpFlow } from '@/components/employee/HelpFlow';
 import { getGuideById } from '@/lib/data/mockGuides';
 import { getProgressByStaffAndGuide } from '@/lib/data/mockProgress';
-import { getCategoryLabel } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 
 // Mock current staff ID - in production, this would come from auth
@@ -20,8 +18,7 @@ export default function GuideDetailPage() {
   const params = useParams();
   const router = useRouter();
   const guideId = params.id as string;
-  const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
-  const [questionText, setQuestionText] = useState('');
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -55,13 +52,6 @@ export default function GuideDetailPage() {
     if (stepNumber <= totalSteps) {
       setCurrentStep(Math.min(stepNumber + 1, totalSteps));
     }
-  };
-
-  const handleSubmitQuestion = () => {
-    // In production, this would submit to backend
-    console.log('Question submitted:', questionText);
-    setQuestionText('');
-    setIsQuestionModalOpen(false);
   };
 
   const currentStepData = steps[currentStep - 1];
@@ -171,7 +161,7 @@ export default function GuideDetailPage() {
             <span className="text-sm font-medium">Repeat</span>
           </button>
           <button
-            onClick={() => setIsQuestionModalOpen(true)}
+            onClick={() => setIsHelpModalOpen(true)}
             className="flex-1 bg-gray-600 text-white rounded-lg px-4 py-3 flex items-center justify-center gap-2 hover:bg-gray-500 transition-colors"
           >
             <Sparkles className="h-4 w-4" />
@@ -188,36 +178,14 @@ export default function GuideDetailPage() {
         </div>
       </div>
 
-      {/* Help Modal */}
-      <Modal
-        open={isQuestionModalOpen}
-        onOpenChange={setIsQuestionModalOpen}
-        title="Ask for Help"
-        description={`Step ${currentStep}: ${currentStepData.title}`}
-        footer={
-          <div className="flex justify-end gap-2">
-            <Button
-              variant="outline"
-              onClick={() => setIsQuestionModalOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleSubmitQuestion} disabled={!questionText.trim()}>
-              Submit
-            </Button>
-          </div>
-        }
-      >
-        <div className="space-y-4">
-          <textarea
-            value={questionText}
-            onChange={(e) => setQuestionText(e.target.value)}
-            placeholder="Ask for help..."
-            className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white resize-none"
-            rows={4}
-          />
-        </div>
-      </Modal>
+      {/* Help Flow Modal - AI Assistance First, Then Manager */}
+      <HelpFlow
+        open={isHelpModalOpen}
+        onOpenChange={setIsHelpModalOpen}
+        stepNumber={currentStep}
+        stepTitle={currentStepData.title}
+        guideId={guideId}
+      />
     </div>
   );
 }

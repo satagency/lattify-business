@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option B: The Platform Showcase - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #000;
+            line-height: 1.6;
+        }
+        
+        .wireframe {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .section {
+            padding: 80px 60px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .logo {
+            width: 140px;
+            height: 40px;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 40px;
+            font-size: 15px;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            border: 2px solid #333;
+            background: #333;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #333;
+        }
+        
+        /* Hero with large product visual */
+        .hero-visual-large {
+            width: 100%;
+            height: 500px;
+            background: #e8e8e8;
+            border: 3px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+            position: relative;
+        }
+        
+        .stat-overlay {
+            position: absolute;
+            background: white;
+            border: 2px solid #333;
+            padding: 20px 30px;
+            font-weight: 700;
+        }
+        
+        .stat-overlay.top-left { top: 30px; left: 30px; }
+        .stat-overlay.top-right { top: 30px; right: 30px; }
+        .stat-overlay.bottom-left { bottom: 30px; left: 30px; }
+        .stat-overlay.bottom-right { bottom: 30px; right: 30px; }
+        
+        .stat-number {
+            font-size: 36px;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Use case cards */
+        .use-case-card {
+            border: 2px solid #333;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .use-case-visual {
+            width: 200px;
+            height: 300px;
+            background: #e8e8e8;
+            border: 2px solid #999;
+        }
+        
+        /* Dashboard mockup */
+        .dashboard-preview {
+            border: 3px solid #333;
+            padding: 30px;
+            background: #fafafa;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-metric {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ddd;
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .metric-label {
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background: #f5f5f5;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+        
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .pricing-card {
+            border: 3px solid #333;
+            padding: 40px 30px;
+        }
+        
+        .pricing-card.featured {
+            background: #333;
+            color: white;
+        }
+        
+        .pricing-amount {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 12px 0 8px 0;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 24px 0 30px 0;
+        }
+        
+        .pricing-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .pricing-card.featured .pricing-features li {
+            border-bottom-color: #555;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 60px 60px 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .footer h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        
+        .footer ul {
+            list-style: none;
+        }
+        
+        .footer li {
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #999;
+        }
+        
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe">
+        
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="logo">LATTIFY</div>
+            <div class="nav-items">
+                <span>Platform</span>
+                <span>Use Cases</span>
+                <span>Pricing</span>
+            </div>
+            <button class="btn">Try Live Demo</button>
+        </nav>
+        
+        <!-- Hero -->
+        <section class="section">
+            <div class="container">
+                <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+                    <h1 style="font-size: 56px; line-height: 1.1; font-weight: 700; margin-bottom: 24px;">Professional training infrastructure. Built in 10 minutes, not 10 years.</h1>
+                    <p style="font-size: 20px; line-height: 1.6; color: #444; margin-bottom: 40px;">Film your expert once. AI generates step-by-step training guides. Staff train on their phones with instant help in any language. Training improves automatically based on real feedback.</p>
+                    <div class="cta-group" style="justify-content: center;">
+                        <button class="btn">Try Live Demo</button>
+                        <button class="btn btn-secondary">Start Free</button>
+                    </div>
+                </div>
+                
+                <div class="hero-visual-large">
+                    <span style="font-size: 16px; font-weight: 600; color: #666;">PLATFORM DASHBOARD MOCKUP</span>
+                    
+                    <div class="stat-overlay top-left">
+                        <span class="stat-number">10min</span>
+                        <span class="stat-label">Setup Time</span>
+                    </div>
+                    
+                    <div class="stat-overlay top-right">
+                        <span class="stat-number">45%</span>
+                        <span class="stat-label">Training Faster</span>
+                    </div>
+                    
+                    <div class="stat-overlay bottom-left">
+                        <span class="stat-number">20+</span>
+                        <span class="stat-label">Languages</span>
+                    </div>
+                    
+                    <div class="stat-overlay bottom-right">
+                        <span class="stat-number">£99</span>
+                        <span class="stat-label">Per Month</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Trust Bar -->
+        <section style="background: #fafafa; padding: 40px 60px; border-bottom: 1px solid #ddd;">
+            <div class="container">
+                <p style="text-align: center; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 30px;">Trusted by hospitality businesses across the UK</p>
+                <div style="display: flex; justify-content: space-around; align-items: center;">
+                    <div style="width: 120px; height: 60px; background: #ddd; border: 2px solid #999;"></div>
+                    <div style="width: 120px; height: 60px; background: #ddd; border: 2px solid #999;"></div>
+                    <div style="width: 120px; height: 60px; background: #ddd; border: 2px solid #999;"></div>
+                    <div style="width: 120px; height: 60px; background: #ddd; border: 2px solid #999;"></div>
+                    <div style="width: 120px; height: 60px; background: #ddd; border: 2px solid #999;"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Use Cases -->
+        <section class="section">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 48px; margin-bottom: 60px;">One Platform. Every Training Need.</h2>
+                
+                <div class="use-case-card">
+                    <div class="use-case-visual"></div>
+                    <div>
+                        <h3 style="font-size: 28px; margin-bottom: 16px;">Restaurants</h3>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 20px;">Train kitchen staff on signature dishes, prep procedures, and plating standards. Maria trained 12 new line cooks in one week—each completed carbonara training 45% faster than shadowing.</p>
+                        <ul style="list-style: none; font-size: 16px; line-height: 1.8;">
+                            <li>✓ Signature dish preparation</li>
+                            <li>✓ Prep station procedures</li>
+                            <li>✓ Plating and presentation</li>
+                            <li>✓ Food safety protocols</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-visual"></div>
+                    <div>
+                        <h3 style="font-size: 28px; margin-bottom: 16px;">Bars & Pubs</h3>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 20px;">Film your head bartender making your signature cocktails once. Train every new hire on their phone before their first shift. They get instant help when stuck—in Spanish, Polish, or any language.</p>
+                        <ul style="list-style: none; font-size: 16px; line-height: 1.8;">
+                            <li>✓ Signature cocktail recipes</li>
+                            <li>✓ Beer and wine service</li>
+                            <li>✓ Opening/closing procedures</li>
+                            <li>✓ Equipment maintenance</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-visual"></div>
+                    <div>
+                        <h3 style="font-size: 28px; margin-bottom: 16px;">Hotels</h3>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 20px;">Update your check-in procedure across 5 locations. All 42 front desk staff get notified, complete the 2-minute update training, and apply changes immediately. Version control shows exactly what changed.</p>
+                        <ul style="list-style: none; font-size: 16px; line-height: 1.8;">
+                            <li>✓ Check-in/check-out procedures</li>
+                            <li>✓ Housekeeping standards</li>
+                            <li>✓ Room service protocols</li>
+                            <li>✓ Guest service standards</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-visual"></div>
+                    <div>
+                        <h3 style="font-size: 28px; margin-bottom: 16px;">Cafes</h3>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 20px;">Train baristas on espresso preparation, latte art, and opening procedures. Staff flag issues during training: "grind setting unclear." You fix it in 2 minutes. Next barista gets the improved version.</p>
+                        <ul style="list-style: none; font-size: 16px; line-height: 1.8;">
+                            <li>✓ Coffee preparation standards</li>
+                            <li>✓ Latte art techniques</li>
+                            <li>✓ Pastry handling</li>
+                            <li>✓ Equipment cleaning protocols</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Manager Dashboard Preview -->
+        <section class="section" style="background: #fafafa;">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 48px; margin-bottom: 20px;">See Exactly Where Staff Struggle</h2>
+                <p style="text-align: center; font-size: 20px; color: #666; max-width: 700px; margin: 0 auto 60px;">Analytics show problem steps, staff feedback, and improvement over time. Know exactly what needs fixing.</p>
+                
+                <div class="dashboard-preview">
+                    <div class="dashboard-header">
+                        <h3 style="font-size: 24px;">Training Analytics Dashboard</h3>
+                        <span style="font-size: 14px; color: #666;">Last 30 Days</span>
+                    </div>
+                    
+                    <div class="grid-3" style="margin-bottom: 40px;">
+                        <div class="dashboard-metric">
+                            <span class="metric-value">156</span>
+                            <span class="metric-label">Training Sessions</span>
+                        </div>
+                        <div class="dashboard-metric">
+                            <span class="metric-value">45%</span>
+                            <span class="metric-label">Avg Time Reduction</span>
+                        </div>
+                        <div class="dashboard-metric">
+                            <span class="metric-value">89%</span>
+                            <span class="metric-label">Completion Rate</span>
+                        </div>
+                    </div>
+                    
+                    <h4 style="font-size: 18px; margin-bottom: 20px;">Problem Steps Identified</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Guide</th>
+                                <th>Step</th>
+                                <th>Help Requests</th>
+                                <th>Staff Feedback</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Carbonara Recipe</td>
+                                <td>Step 4: Pasta Water</td>
+                                <td style="font-weight: 700;">70%</td>
+                                <td>3 reported "measurement unclear"</td>
+                            </tr>
+                            <tr>
+                                <td>Old Fashioned</td>
+                                <td>Step 2: Muddling</td>
+                                <td>45%</td>
+                                <td>2 reported "timing unclear"</td>
+                            </tr>
+                            <tr>
+                                <td>Check-In Process</td>
+                                <td>Step 7: Loyalty Program</td>
+                                <td>65%</td>
+                                <td>4 reported "explanation confusing"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Staff View Preview -->
+        <section class="section">
+            <div class="container">
+                <div class="grid-2">
+                    <div>
+                        <h2 style="font-size: 48px; margin-bottom: 20px;">Staff Train on Their Phones</h2>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 30px;">Step-by-step guides with instant AI help. Stuck on Step 3? Tap "Get help"—get an answer in 15 seconds. Flag issues, add tips, complete verification photos. All from their phone during downtime.</p>
+                        <ul style="list-style: none; font-size: 16px; line-height: 2;">
+                            <li>✓ Clear step-by-step instructions</li>
+                            <li>✓ Instant help when stuck</li>
+                            <li>✓ Works in 20+ languages</li>
+                            <li>✓ Flag issues and add tips</li>
+                            <li>✓ Photo verification</li>
+                            <li>✓ Works offline</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="width: 100%; height: 500px; background: #e8e8e8; border: 3px solid #333; display: flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 16px; font-weight: 600; color: #666;">MOBILE GUIDE VIEW MOCKUP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Platform Features Grid -->
+        <section class="section" style="background: #fafafa;">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 48px; margin-bottom: 60px;">Complete Training Infrastructure</h2>
+                
+                <div class="grid-3">
+                    <div style="border: 2px solid #ddd; padding: 30px;">
+                        <div style="width: 50px; height: 50px; background: #333; margin-bottom: 20px;"></div>
+                        <h4 style="font-size: 20px; margin-bottom: 12px;">Film on Phone</h4>
+                        <p style="font-size: 15px; color: #666;">10-minute video on the phone you use for Instagram. No production team needed.</p>
+                    </div>
+                    
+                    <div style="border: 2px solid #ddd; padding: 30px;">
+                        <div style="width: 50px; height: 50px; background: #333; margin-bottom: 20px;"></div>
+                        <h4 style="font-size: 20px; margin-bottom: 12px;">AI Guide Generation</h4>
+                        <p style="font-size: 15px; color: #666;">System creates step-by-step guide automatically. Materials list, tools, safety warnings included.</p>
+                    </div>
+                    
+                    <div style="border: 2px solid #ddd; padding: 30px;">
+                        <div style="width: 50px; height: 50px; background: #333; margin-bottom: 20px;"></div>
+                        <h4 style="font-size: 20px; margin-bottom: 12px;">Instant Help</h4>
+                        <p style="font-size: 15px; color: #666;">Context-aware AI responds in 15 seconds. Knows exactly what step they're on, what they're struggling with.</p>
+                    </div>
+                    
+                    <div style="border: 2px solid #ddd; padding: 30px;">
+                        <div style="width: 50px; height: 50px; background: #333; margin-bottom: 20px;"></div>
+                        <h4 style="font-size: 20px; margin-bottom: 12px;">20+ Languages</h4>
+                        <p style="font-size: 15px; color: #666;">Create once in English. Available in Spanish, Polish, Romanian, 20+ languages automatically.</p>
+                    </div>
+                    
+                    <div style="border: 2px solid #ddd; padding: 30px;">
+                        <div style="width: 50px; height: 50px; background: #333; margin-bottom: 20px;"></div>
+                        <h4 style="font-size: 20px; margin-bottom: 12px;">Training Analytics</h4>
+                        <p style="font-size: 15px; color: #666;">See where staff struggle. Track improvement. Problem step identification with actionable data.</p>
+                    </div>
+                    
+                    <div style="border: 2px solid #ddd; padding: 30px;">
+                        <div style="width: 50px; height: 50px; background: #333; margin-bottom: 20px;"></div>
+                        <h4 style="font-size: 20px; margin-bottom: 12px;">Real-Time Feedback</h4>
+                        <p style="font-size: 15px; color: #666;">Staff flag issues and add tips during training. Know exactly what needs fixing.</p>
+                    </div>
+                    
+                    <div style="border: 2px solid #ddd; padding: 30px;">
+                        <div style="width: 50px; height: 50px; background: #333; margin-bottom: 20px;"></div>
+                        <h4 style="font-size: 20px; margin-bottom: 12px;">Progress Tracking</h4>
+                        <p style="font-size: 15px; color: #666;">Assign training in one click. See who completed what. Photo verification of finished work.</p>
+                    </div>
+                    
+                    <div style="border: 2px solid #ddd; padding: 30px;">
+                        <div style="width: 50px; height: 50px; background: #333; margin-bottom: 20px;"></div>
+                        <h4 style="font-size: 20px; margin-bottom: 12px;">Always Current</h4>
+                        <p style="font-size: 15px; color: #666;">Update procedure once, notify everyone instantly. Version control shows what changed.</p>
+                    </div>
+                    
+                    <div style="border: 2px solid #ddd; padding: 30px;">
+                        <div style="width: 50px; height: 50px; background: #333; margin-bottom: 20px;"></div>
+                        <h4 style="font-size: 20px; margin-bottom: 12px;">Multi-Location</h4>
+                        <p style="font-size: 15px; color: #666;">Manage training across multiple locations. Consistent standards everywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Pricing -->
+        <section class="section">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 48px;">Enterprise Training. Small Business Price.</h2>
+                <p style="text-align: center; font-size: 20px; color: #666; margin-bottom: 60px;">What chains paid millions to build, you get for £99/month.</p>
+                
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div style="font-size: 14px; font-weight: 700; text-transform: uppercase;">Free</div>
+                        <div class="pricing-amount">£0</div>
+                        <div style="font-size: 16px; color: #666;">/month</div>
+                        <ul class="pricing-features">
+                            <li>1 guide</li>
+                            <li>5 staff</li>
+                            <li>Basic tracking</li>
+                        </ul>
+                        <button class="btn btn-secondary" style="width: 100%;">Start Free</button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div style="font-size: 14px; font-weight: 700; text-transform: uppercase;">Starter</div>
+                        <div class="pricing-amount">£99</div>
+                        <div style="font-size: 16px; color: #666;">/month</div>
+                        <ul class="pricing-features">
+                            <li>10 guides</li>
+                            <li>25 staff</li>
+                            <li>AI help</li>
+                            <li>20+ languages</li>
+                            <li>Progress tracking</li>
+                            <li>Staff feedback</li>
+                        </ul>
+                        <button class="btn btn-secondary" style="width: 100%;">Start Trial</button>
+                    </div>
+                    
+                    <div class="pricing-card featured">
+                        <div style="font-size: 14px; font-weight: 700; text-transform: uppercase;">Pro</div>
+                        <div class="pricing-amount">£299</div>
+                        <div style="font-size: 16px; color: #ccc;">/month</div>
+                        <ul class="pricing-features">
+                            <li>Unlimited guides</li>
+                            <li>100 staff</li>
+                            <li>Everything in Starter</li>
+                            <li><strong>Training analytics</strong></li>
+                            <li><strong>Problem ID</strong></li>
+                            <li><strong>Improvement tracking</strong></li>
+                            <li>Multi-location</li>
+                            <li>Custom branding</li>
+                        </ul>
+                        <button class="btn" style="width: 100%; background: white; color: #333;">Start Trial</button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div style="font-size: 14px; font-weight: 700; text-transform: uppercase;">Enterprise</div>
+                        <div class="pricing-amount">Custom</div>
+                        <div style="font-size: 16px; color: #666;">pricing</div>
+                        <ul class="pricing-features">
+                            <li>White-glove setup</li>
+                            <li>Training intelligence</li>
+                            <li>Consulting</li>
+                            <li>White-label</li>
+                            <li>Dedicated support</li>
+                        </ul>
+                        <button class="btn btn-secondary" style="width: 100%;">Contact Sales</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Final CTA -->
+        <section class="section" style="background: #1a1a1a; color: white; text-align: center;">
+            <div class="container">
+                <h2 style="color: white; font-size: 48px; margin-bottom: 24px;">See The Platform in Action</h2>
+                <p style="font-size: 20px; max-width: 800px; margin: 0 auto 40px; color: #ccc;">Try our live demo. See how training guides are created, how staff use them, and how analytics identify problem areas.</p>
+                <div class="cta-group" style="justify-content: center;">
+                    <button class="btn">Try Live Demo</button>
+                    <button class="btn" style="background: white; color: #333;">Start Free</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div>
+                        <div class="logo" style="margin-bottom: 20px;">LATTIFY</div>
+                        <p style="color: #999; font-size: 14px;">Training infrastructure for every hospitality business.</p>
+                    </div>
+                    <div>
+                        <h4>Product</h4>
+                        <ul>
+                            <li>Platform</li>
+                            <li>Use Cases</li>
+                            <li>Pricing</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Company</h4>
+                        <ul>
+                            <li>About</li>
+                            <li>Customers</li>
+                            <li>Contact</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Resources</h4>
+                        <ul>
+                            <li>Help Center</li>
+                            <li>Documentation</li>
+                            <li>Blog</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    © 2025 Lattify. All rights reserved.
+                </div>
+            </div>
+        </footer>
+        
+    </div>
+    
+    <div style="background: #f0f0f0; padding: 40px; text-align: center; border-top: 3px solid #333;">
+        <h3 style="margin-bottom: 12px;">OPTION B: THE PLATFORM SHOWCASE</h3>
+        <p style="color: #666; max-width: 800px; margin: 0 auto;">Leads with product credibility and scale. Large hero visual shows platform with overlay stats. Feature-forward approach showcasing both manager and staff dashboards. Emphasizes technical capability and completeness of the solution.</p>
+    </div>
+</body>
+</html>
